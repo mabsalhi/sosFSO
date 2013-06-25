@@ -6,7 +6,9 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -94,6 +98,12 @@ public class Personne implements Serializable {
     private Integer som;
     @Column(name = "poste_budgetaire")
     private Integer posteBudgetaire;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    private List<Qualification> qualifications;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    private List<Affectation> affectations;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    private List<Situation> situations;
 
     public Personne() {
     }
@@ -228,6 +238,33 @@ public class Personne implements Serializable {
 
     public void setPosteBudgetaire(Integer posteBudgetaire) {
         this.posteBudgetaire = posteBudgetaire;
+    }
+
+    @XmlTransient
+    public List<Qualification> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(List<Qualification> qualifications) {
+        this.qualifications = qualifications;
+    }
+
+    @XmlTransient
+    public List<Affectation> getAffectations() {
+        return affectations;
+    }
+
+    public void setAffectations(List<Affectation> affectations) {
+        this.affectations = affectations;
+    }
+
+    @XmlTransient
+    public List<Situation> getSituations() {
+        return situations;
+    }
+
+    public void setSituations(List<Situation> situations) {
+        this.situations = situations;
     }
 
     @Override

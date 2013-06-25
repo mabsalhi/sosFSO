@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -58,6 +60,12 @@ public class Affectation implements Serializable {
     @Size(max = 255)
     @Column(name = "remarques")
     private String remarques;
+    @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
+    @ManyToOne(optional = false)
+    private Personne personne;
+    @JoinColumn(name = "id_service", referencedColumnName = "id_service")
+    @ManyToOne(optional = false)
+    private Service service;
 
     public Affectation() {
     }
@@ -110,6 +118,22 @@ public class Affectation implements Serializable {
 
     public void setRemarques(String remarques) {
         this.remarques = remarques;
+    }
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     @Override
