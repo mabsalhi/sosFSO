@@ -53,7 +53,7 @@ public class Diplome implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDiplome")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diplome")
     private List<Qualification> qualifications;
 
     public Diplome() {

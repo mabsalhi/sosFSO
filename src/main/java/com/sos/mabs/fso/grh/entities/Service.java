@@ -49,7 +49,7 @@ public class Service implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idService")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
     private List<Affectation> affectations;
 
     public Service() {

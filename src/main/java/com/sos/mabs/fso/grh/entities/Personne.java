@@ -98,11 +98,11 @@ public class Personne implements Serializable {
     private Integer som;
     @Column(name = "poste_budgetaire")
     private Integer posteBudgetaire;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
     private List<Qualification> qualifications;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
     private List<Affectation> affectations;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonne")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
     private List<Situation> situations;
 
     public Personne() {

@@ -49,7 +49,7 @@ public class Cadre implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCadre")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cadre")
     private List<Situation> situations;
 
     public Cadre() {
