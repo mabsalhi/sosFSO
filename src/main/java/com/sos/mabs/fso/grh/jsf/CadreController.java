@@ -30,9 +30,33 @@ public class CadreController implements Serializable {
      */
     public CadreController() {
     }
+
+       
+    public String create(){
+        getEjbFacade().create(current);
+        return "list";
+    }
     
     public List<Cadre> getCadres() {
         return ejbFacade.findAll();
     }
+
+    public Cadre getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Cadre current) {
+        this.current = current;
+    }
+
+    public CadreFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(CadreFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+    
+    
     
 }

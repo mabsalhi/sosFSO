@@ -55,6 +55,14 @@ public class Cadre implements Serializable {
     public Cadre() {
     }
 
+    public Cadre(String intitule, Integer echelle, String description) {
+        this.intitule = intitule;
+        this.echelle = echelle;
+        this.description = description;
+    }
+    
+    
+
     public Cadre(Integer idCadre) {
         this.idCadre = idCadre;
     }
