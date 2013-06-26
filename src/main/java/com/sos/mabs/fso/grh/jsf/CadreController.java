@@ -11,19 +11,23 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.model.DataModel;
 import javax.inject.Inject;
 
 /**
  *
  * @author mab.salhi
  */
+
 @Named(value = "cadreController")
 @SessionScoped
 public class CadreController implements Serializable {
 
-    private Cadre current;
+    private Cadre current = new Cadre();
     @Inject
     private CadreFacade ejbFacade;
+    private List<Cadre> cadresList;
+    private DataModel<Cadre> cadres;
     
     /**
      * Creates a new instance of CadreController
@@ -34,6 +38,11 @@ public class CadreController implements Serializable {
        
     public String create(){
         getEjbFacade().create(current);
+        return "list";
+    }
+    
+    public String update(){
+        
         return "list";
     }
     

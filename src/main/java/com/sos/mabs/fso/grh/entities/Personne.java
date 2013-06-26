@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -267,6 +268,66 @@ public class Personne implements Serializable {
         this.situations = situations;
     }
 
+    public boolean addQualification(Qualification qualification){
+        if(qualifications == null){
+            qualifications = new LinkedList<>();
+        }
+        if(qualification != null && !qualifications.contains(qualification)){
+            qualifications.add(qualification);
+            qualification.setPersonne(this);
+            return true;
+        }        
+        return false;
+    }
+    
+    public boolean removeQualification(Qualification qualification){
+        if(qualifications != null && !qualifications.isEmpty()){
+            return qualifications.remove(qualification);
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean addSituation(Situation situation){
+        if(situations == null){
+            situations = new LinkedList<>();
+        }
+        if(situation != null && !situations.contains(situation)){
+            situations.add(situation);
+            situation.setPersonne(this);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean removeSituation(Situation situation){
+        if(situations != null && !situations.isEmpty()){
+            return situations.remove(situation);
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean addAffectation(Affectation affectation){
+        if(affectations == null){
+            affectations = new LinkedList<>();
+        }
+        if(affectation != null && !affectations.contains(affectation)){
+            affectations.add(affectation);
+            affectation.setPersonne(this);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean removeAffectation(Affectation affectation){
+        if(affectations != null && !affectations.isEmpty()){
+            return affectations.remove(affectation);
+        }else{
+            return false;
+        }
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

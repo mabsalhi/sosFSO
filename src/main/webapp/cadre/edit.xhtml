@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Liste des Cadres</title>
+                <title>Nouveau Cadre</title>
             </f:facet>
         </h:head>
 
@@ -40,23 +40,21 @@
 
                 <p:layoutUnit position="center">
                     <h:form>  
-                        <p:dataTable var="cadre" value="#{cadreController.cadres}">
-                            <p:column headerText="Identifiant">  
-                                <p:commandLink value="#{cadre.id}" action="" />  
-        </p:column>  
-        <p:column headerText="Intitule">  
-            <h:outputText value="#{cadre.intitule}" />  
-        </p:column>  
-  
-        <p:column headerText="Echelle">  
-            <h:outputText value="#{cadre.echelle}" />  
-        </p:column>  
-  
-        <p:column headerText="description">  
-            <h:outputText value="#{cadre.description}" />  
-        </p:column>  
-            
-    </p:dataTable>  
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="Intitule du cadre" for="intitule"/>
+                            <p:inputText value="#{cadreController.current.intitule}" required="true"
+                                         id="intitule"/>
+                            <p:outputLabel/>
+                            <p:outputLabel value="Echelle" for="echelle"/>
+                            <p:inputText value="#{cadreController.current.echelle}" required="true"
+                                         id="echelle"/>
+                            <p:outputLabel/>
+                            <p:outputLabel value="description du cadre" for="description"/>
+                            <p:inputText value="#{cadreController.current.description}" required="true"
+                                         id="description"/>
+                            <p:outputLabel/>
+                        </p:panelGrid>
+                        <p:commandButton action="#{cadreController.create}" value="Ajouter"/>
 </h:form>  
                 </p:layoutUnit>
 
