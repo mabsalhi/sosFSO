@@ -3,11 +3,9 @@
  * and open the template in the editor.
  */
 package com.sos.mabs.fso.grh.entities;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +15,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_diplome")
@@ -32,9 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Diplome.findAll", query = "SELECT d FROM Diplome d"),
     @NamedQuery(name = "Diplome.findByIdDiplome", query = "SELECT d FROM Diplome d WHERE d.idDiplome = :idDiplome"),
+    @NamedQuery(name = "Diplome.findByDescription", query = "SELECT d FROM Diplome d WHERE d.description = :description"),
     @NamedQuery(name = "Diplome.findByIntitule", query = "SELECT d FROM Diplome d WHERE d.intitule = :intitule"),
-    @NamedQuery(name = "Diplome.findByType", query = "SELECT d FROM Diplome d WHERE d.type = :type"),
-    @NamedQuery(name = "Diplome.findByDescription", query = "SELECT d FROM Diplome d WHERE d.description = :description")})
+    @NamedQuery(name = "Diplome.findByType", query = "SELECT d FROM Diplome d WHERE d.type = :type")})
 public class Diplome implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,19 +40,20 @@ public class Diplome implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_diplome")
     private Integer idDiplome;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "intitule")
-    private String intitule;
-    @Size(max = 45)
-    @Column(name = "type")
-    private String type;
+    @Version
+    @Column(name = "version")
+    private Integer version;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diplome")
-    private List<Qualification> qualifications;
+    @Size(max = 255)
+    @Column(name = "intitule")
+    private String intitule;
+    @Size(max = 255)
+    @Column(name = "type")
+    private String type;
+    @OneToMany(mappedBy = "diplome")
+    private List<Qualification> qualificationList;
 
     public Diplome() {
     }
@@ -63,17 +62,28 @@ public class Diplome implements Serializable {
         this.idDiplome = idDiplome;
     }
 
-    public Diplome(Integer idDiplome, String intitule) {
-        this.idDiplome = idDiplome;
-        this.intitule = intitule;
-    }
-
     public Integer getIdDiplome() {
         return idDiplome;
     }
 
     public void setIdDiplome(Integer idDiplome) {
         this.idDiplome = idDiplome;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getIntitule() {
@@ -92,21 +102,13 @@ public class Diplome implements Serializable {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @XmlTransient
-    public List<Qualification> getQualifications() {
-        return qualifications;
+    public List<Qualification> getQualificationList() {
+        return qualificationList;
     }
 
-    public void setQualifications(List<Qualification> qualifications) {
-        this.qualifications = qualifications;
+    public void setQualificationList(List<Qualification> qualificationList) {
+        this.qualificationList = qualificationList;
     }
 
     @Override
@@ -131,7 +133,7 @@ public class Diplome implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Diplome[ idDiplome=" + idDiplome + " ]";
+        return "com.sos.mabs.grhfso.model.Diplome[ idDiplome=" + idDiplome + " ]";
     }
     
 }

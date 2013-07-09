@@ -3,11 +3,9 @@
  * and open the template in the editor.
  */
 package com.sos.mabs.fso.grh.entities;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +15,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_service")
@@ -32,8 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
     @NamedQuery(name = "Service.findByIdService", query = "SELECT s FROM Service s WHERE s.idService = :idService"),
-    @NamedQuery(name = "Service.findByIntitule", query = "SELECT s FROM Service s WHERE s.intitule = :intitule"),
-    @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description")})
+    @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description"),
+    @NamedQuery(name = "Service.findByIntitule", query = "SELECT s FROM Service s WHERE s.intitule = :intitule")})
 public class Service implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,27 +39,29 @@ public class Service implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_service")
     private Integer idService;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "intitule")
-    private String intitule;
+    @Version
+    @Column(name = "version")
+    private Integer version;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
-    private List<Affectation> affectations;
+    @Size(max = 255)
+    @Column(name = "intitule")
+    private String intitule;
+    @OneToMany(mappedBy = "service")
+    private List<Affectation> affectationList;
 
     public Service() {
     }
 
-    public Service(Integer idService) {
-        this.idService = idService;
+    public Service(String description, String intitule) {
+        this.description = description;
+        this.intitule = intitule;
     }
 
-    public Service(Integer idService, String intitule) {
+    
+    public Service(Integer idService) {
         this.idService = idService;
-        this.intitule = intitule;
     }
 
     public Integer getIdService() {
@@ -72,12 +72,12 @@ public class Service implements Serializable {
         this.idService = idService;
     }
 
-    public String getIntitule() {
-        return intitule;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setIntitule(String intitule) {
-        this.intitule = intitule;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getDescription() {
@@ -88,13 +88,21 @@ public class Service implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
-    public List<Affectation> getAffectations() {
-        return affectations;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setAffectations(List<Affectation> affectations) {
-        this.affectations = affectations;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
+    }
+
+    @XmlTransient
+    public List<Affectation> getAffectationList() {
+        return affectationList;
+    }
+
+    public void setAffectationList(List<Affectation> affectationList) {
+        this.affectationList = affectationList;
     }
 
     @Override
@@ -119,7 +127,7 @@ public class Service implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Service[ idService=" + idService + " ]";
+        return "com.sos.mabs.grhfso.model.Service[ idService=" + idService + " ]";
     }
     
 }

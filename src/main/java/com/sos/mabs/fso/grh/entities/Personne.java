@@ -3,13 +3,10 @@
  * and open the template in the editor.
  */
 package com.sos.mabs.fso.grh.entities;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,13 +19,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_personne")
@@ -36,19 +35,19 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p"),
     @NamedQuery(name = "Personne.findByIdPersonne", query = "SELECT p FROM Personne p WHERE p.idPersonne = :idPersonne"),
+    @NamedQuery(name = "Personne.findByCin", query = "SELECT p FROM Personne p WHERE p.cin = :cin"),
     @NamedQuery(name = "Personne.findByNom", query = "SELECT p FROM Personne p WHERE p.nom = :nom"),
     @NamedQuery(name = "Personne.findByPrenom", query = "SELECT p FROM Personne p WHERE p.prenom = :prenom"),
     @NamedQuery(name = "Personne.findByNomAr", query = "SELECT p FROM Personne p WHERE p.nomAr = :nomAr"),
     @NamedQuery(name = "Personne.findByPrenomAr", query = "SELECT p FROM Personne p WHERE p.prenomAr = :prenomAr"),
-    @NamedQuery(name = "Personne.findByCin", query = "SELECT p FROM Personne p WHERE p.cin = :cin"),
     @NamedQuery(name = "Personne.findByDateNaissance", query = "SELECT p FROM Personne p WHERE p.dateNaissance = :dateNaissance"),
     @NamedQuery(name = "Personne.findByLieuNaissance", query = "SELECT p FROM Personne p WHERE p.lieuNaissance = :lieuNaissance"),
+    @NamedQuery(name = "Personne.findByTelephonne", query = "SELECT p FROM Personne p WHERE p.telephonne = :telephonne"),
+    @NamedQuery(name = "Personne.findByAdresse", query = "SELECT p FROM Personne p WHERE p.adresse = :adresse"),
     @NamedQuery(name = "Personne.findByEtatMatrimonial", query = "SELECT p FROM Personne p WHERE p.etatMatrimonial = :etatMatrimonial"),
     @NamedQuery(name = "Personne.findByNbEnfants", query = "SELECT p FROM Personne p WHERE p.nbEnfants = :nbEnfants"),
-    @NamedQuery(name = "Personne.findByAdresse", query = "SELECT p FROM Personne p WHERE p.adresse = :adresse"),
-    @NamedQuery(name = "Personne.findByTelephonne", query = "SELECT p FROM Personne p WHERE p.telephonne = :telephonne"),
-    @NamedQuery(name = "Personne.findByDateRecrutement", query = "SELECT p FROM Personne p WHERE p.dateRecrutement = :dateRecrutement"),
     @NamedQuery(name = "Personne.findBySom", query = "SELECT p FROM Personne p WHERE p.som = :som"),
+    @NamedQuery(name = "Personne.findByDateRecrutement", query = "SELECT p FROM Personne p WHERE p.dateRecrutement = :dateRecrutement"),
     @NamedQuery(name = "Personne.findByPosteBudgetaire", query = "SELECT p FROM Personne p WHERE p.posteBudgetaire = :posteBudgetaire")})
 public class Personne implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -57,60 +56,86 @@ public class Personne implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_personne")
     private Integer idPersonne;
-    @Size(max = 45)
-    @Column(name = "nom")
-    private String nom;
-    @Size(max = 45)
-    @Column(name = "prenom")
-    private String prenom;
-    @Size(max = 45)
-    @Column(name = "nom_ar")
-    private String nomAr;
-    @Size(max = 45)
-    @Column(name = "prenom_ar")
-    private String prenomAr;
-    @Size(max = 45)
+    @Version
+    @Column(name = "version", nullable = true)    
+    private Integer version;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "cin")
     private String cin;
-    @Column(name = "date_naissance")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "nom")
+    private String nom;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "prenom")
+    private String prenom;
+    @Size(max = 255)
+    @Column(name = "nom_ar", nullable = true)
+    private String nomAr;
+    @Size(max = 255)
+    @Column(name = "prenom_ar", nullable = true)
+    private String prenomAr;
+    @Column(name = "date_naissance", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
-    @Size(max = 45)
-    @Column(name = "lieu_naissance")
-    private String lieuNaissance;
-    @Size(max = 45)
-    @Column(name = "etat_matrimonial")
-    private String etatMatrimonial;
-    @Column(name = "nb_enfants")
-    private Integer nbEnfants;
     @Size(max = 255)
-    @Column(name = "adresse")
-    private String adresse;
-    @Size(max = 45)
-    @Column(name = "telephonne")
+    @Column(name = "lieu_naissance", nullable = true)
+    private String lieuNaissance;
+    @Size(max = 255)
+    @Column(name = "telephonne", nullable = true)
     private String telephonne;
+    @Size(max = 255)
+    @Column(name = "adresse", nullable = true)
+    private String adresse;
+    @Size(max = 255)
+    @Column(name = "etat_matrimonial", nullable = true)
+    private String etatMatrimonial;
+    @Column(name = "nb_enfants", nullable = true)
+    private Integer nbEnfants;
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", nullable = true)
     private byte[] photo;
-    @Column(name = "date_recrutement")
-    @Temporal(TemporalType.DATE)
-    private Date dateRecrutement;
     @Column(name = "som")
     private Integer som;
+    @Column(name = "date_recrutement", nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date dateRecrutement;
     @Column(name = "poste_budgetaire")
     private Integer posteBudgetaire;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
-    private List<Qualification> qualifications;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
-    private List<Affectation> affectations;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
-    private List<Situation> situations;
+    @OneToMany(mappedBy = "personne")
+    private List<Qualification> qualificationList;
+    @OneToMany(mappedBy = "personne")
+    private List<Affectation> affectationList;
+    @OneToMany(mappedBy = "personne")
+    private List<Situation> situationList;
 
     public Personne() {
     }
 
+    public Personne(String cin, String nom, String prenom, Date dateNaissance, Integer som, Date dateRecrutement) {
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.som = som;
+        this.dateRecrutement = dateRecrutement;
+    }
+
+    
     public Personne(Integer idPersonne) {
         this.idPersonne = idPersonne;
+    }
+
+    public Personne(Integer idPersonne, String cin, String nom, String prenom) {
+        this.idPersonne = idPersonne;
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
     }
 
     public Integer getIdPersonne() {
@@ -119,6 +144,22 @@ public class Personne implements Serializable {
 
     public void setIdPersonne(Integer idPersonne) {
         this.idPersonne = idPersonne;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getNom() {
@@ -153,14 +194,6 @@ public class Personne implements Serializable {
         this.prenomAr = prenomAr;
     }
 
-    public String getCin() {
-        return cin;
-    }
-
-    public void setCin(String cin) {
-        this.cin = cin;
-    }
-
     public Date getDateNaissance() {
         return dateNaissance;
     }
@@ -175,6 +208,22 @@ public class Personne implements Serializable {
 
     public void setLieuNaissance(String lieuNaissance) {
         this.lieuNaissance = lieuNaissance;
+    }
+
+    public String getTelephonne() {
+        return telephonne;
+    }
+
+    public void setTelephonne(String telephonne) {
+        this.telephonne = telephonne;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getEtatMatrimonial() {
@@ -193,22 +242,6 @@ public class Personne implements Serializable {
         this.nbEnfants = nbEnfants;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getTelephonne() {
-        return telephonne;
-    }
-
-    public void setTelephonne(String telephonne) {
-        this.telephonne = telephonne;
-    }
-
     public byte[] getPhoto() {
         return photo;
     }
@@ -217,20 +250,20 @@ public class Personne implements Serializable {
         this.photo = photo;
     }
 
-    public Date getDateRecrutement() {
-        return dateRecrutement;
-    }
-
-    public void setDateRecrutement(Date dateRecrutement) {
-        this.dateRecrutement = dateRecrutement;
-    }
-
     public Integer getSom() {
         return som;
     }
 
     public void setSom(Integer som) {
         this.som = som;
+    }
+
+    public Date getDateRecrutement() {
+        return dateRecrutement;
+    }
+
+    public void setDateRecrutement(Date dateRecrutement) {
+        this.dateRecrutement = dateRecrutement;
     }
 
     public Integer getPosteBudgetaire() {
@@ -242,92 +275,32 @@ public class Personne implements Serializable {
     }
 
     @XmlTransient
-    public List<Qualification> getQualifications() {
-        return qualifications;
+    public List<Qualification> getQualificationList() {
+        return qualificationList;
     }
 
-    public void setQualifications(List<Qualification> qualifications) {
-        this.qualifications = qualifications;
-    }
-
-    @XmlTransient
-    public List<Affectation> getAffectations() {
-        return affectations;
-    }
-
-    public void setAffectations(List<Affectation> affectations) {
-        this.affectations = affectations;
+    public void setQualificationList(List<Qualification> qualificationList) {
+        this.qualificationList = qualificationList;
     }
 
     @XmlTransient
-    public List<Situation> getSituations() {
-        return situations;
+    public List<Affectation> getAffectationList() {
+        return affectationList;
     }
 
-    public void setSituations(List<Situation> situations) {
-        this.situations = situations;
+    public void setAffectationList(List<Affectation> affectationList) {
+        this.affectationList = affectationList;
     }
 
-    public boolean addQualification(Qualification qualification){
-        if(qualifications == null){
-            qualifications = new LinkedList<>();
-        }
-        if(qualification != null && !qualifications.contains(qualification)){
-            qualifications.add(qualification);
-            qualification.setPersonne(this);
-            return true;
-        }        
-        return false;
+    @XmlTransient
+    public List<Situation> getSituationList() {
+        return situationList;
     }
-    
-    public boolean removeQualification(Qualification qualification){
-        if(qualifications != null && !qualifications.isEmpty()){
-            return qualifications.remove(qualification);
-        }else{
-            return false;
-        }
+
+    public void setSituationList(List<Situation> situationList) {
+        this.situationList = situationList;
     }
-    
-    public boolean addSituation(Situation situation){
-        if(situations == null){
-            situations = new LinkedList<>();
-        }
-        if(situation != null && !situations.contains(situation)){
-            situations.add(situation);
-            situation.setPersonne(this);
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean removeSituation(Situation situation){
-        if(situations != null && !situations.isEmpty()){
-            return situations.remove(situation);
-        }else{
-            return false;
-        }
-    }
-    
-    public boolean addAffectation(Affectation affectation){
-        if(affectations == null){
-            affectations = new LinkedList<>();
-        }
-        if(affectation != null && !affectations.contains(affectation)){
-            affectations.add(affectation);
-            affectation.setPersonne(this);
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean removeAffectation(Affectation affectation){
-        if(affectations != null && !affectations.isEmpty()){
-            return affectations.remove(affectation);
-        }else{
-            return false;
-        }
-    }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -350,7 +323,7 @@ public class Personne implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Personne[ idPersonne=" + idPersonne + " ]";
+        return "com.sos.mabs.grhfso.model.Personne[ idPersonne=" + idPersonne + " ]";
     }
     
 }

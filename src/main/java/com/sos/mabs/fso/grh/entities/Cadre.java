@@ -3,11 +3,9 @@
  * and open the template in the editor.
  */
 package com.sos.mabs.fso.grh.entities;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,13 +15,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_cadre")
@@ -31,9 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Cadre.findAll", query = "SELECT c FROM Cadre c"),
     @NamedQuery(name = "Cadre.findByIdCadre", query = "SELECT c FROM Cadre c WHERE c.idCadre = :idCadre"),
-    @NamedQuery(name = "Cadre.findByIntitule", query = "SELECT c FROM Cadre c WHERE c.intitule = :intitule"),
+    @NamedQuery(name = "Cadre.findByDescription", query = "SELECT c FROM Cadre c WHERE c.description = :description"),
     @NamedQuery(name = "Cadre.findByEchelle", query = "SELECT c FROM Cadre c WHERE c.echelle = :echelle"),
-    @NamedQuery(name = "Cadre.findByDescription", query = "SELECT c FROM Cadre c WHERE c.description = :description")})
+    @NamedQuery(name = "Cadre.findByIntitule", query = "SELECT c FROM Cadre c WHERE c.intitule = :intitule")})
 public class Cadre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,28 +40,29 @@ public class Cadre implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_cadre")
     private Integer idCadre;
-    @Size(max = 255)
-    @Column(name = "intitule")
-    private String intitule;
-    @Column(name = "echelle")
-    private Integer echelle;
+    @Version
+    @Column(name = "version")
+    private Integer version;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cadre")
-    private List<Situation> situations;
+    @Column(name = "echelle")
+    private Integer echelle;
+    @Size(max = 255)
+    @Column(name = "intitule")
+    private String intitule;
+    @OneToMany(mappedBy = "cadre")
+    private List<Situation> situationList;
 
     public Cadre() {
     }
 
-    public Cadre(String intitule, Integer echelle, String description) {
-        this.intitule = intitule;
-        this.echelle = echelle;
+    public Cadre(String description, Integer echelle, String intitule) {
         this.description = description;
+        this.echelle = echelle;
+        this.intitule = intitule;
     }
     
-    
-
     public Cadre(Integer idCadre) {
         this.idCadre = idCadre;
     }
@@ -75,12 +75,21 @@ public class Cadre implements Serializable {
         this.idCadre = idCadre;
     }
 
-    public String getIntitule() {
-        return intitule;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setIntitule(String intitule) {
-        this.intitule = intitule;
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+       
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getEchelle() {
@@ -91,21 +100,21 @@ public class Cadre implements Serializable {
         this.echelle = echelle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     @XmlTransient
-    public List<Situation> getSituations() {
-        return situations;
+    public List<Situation> getSituationList() {
+        return situationList;
     }
 
-    public void setSituations(List<Situation> situations) {
-        this.situations = situations;
+    public void setSituationList(List<Situation> situationList) {
+        this.situationList = situationList;
     }
 
     @Override
@@ -130,7 +139,7 @@ public class Cadre implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Cadre[ idCadre=" + idCadre + " ]";
+        return "com.sos.mabs.grhfso.model.Cadre[ idCadre=" + idCadre + " ]";
     }
     
 }

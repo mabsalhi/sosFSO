@@ -17,13 +17,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_qualification")
@@ -42,28 +43,32 @@ public class Qualification implements Serializable {
     @NotNull
     @Column(name = "id_qualification")
     private Integer idQualification;
+    @Version
+    @Column(name = "version")
+    private Integer version;
     @Column(name = "dateObtention")
     @Temporal(TemporalType.DATE)
     private Date dateObtention;
-    @Size(max = 45)
+    @Size(max = 255)
     @Column(name = "mension")
     private String mension;
-    @Size(max = 250)
+    @Size(max = 255)
     @Column(name = "partie_delivrante")
     private String partieDelivrante;
     @Size(max = 255)
     @Column(name = "remarques")
     private String remarques;
     @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Personne personne;
     @JoinColumn(name = "id_diplome", referencedColumnName = "id_diplome")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Diplome diplome;
 
     public Qualification() {
     }
 
+       
     public Qualification(Integer idQualification) {
         this.idQualification = idQualification;
     }
@@ -74,6 +79,14 @@ public class Qualification implements Serializable {
 
     public void setIdQualification(Integer idQualification) {
         this.idQualification = idQualification;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public Date getDateObtention() {
@@ -124,6 +137,7 @@ public class Qualification implements Serializable {
         this.diplome = diplome;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -146,7 +160,7 @@ public class Qualification implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Qualification[ idQualification=" + idQualification + " ]";
+        return "com.sos.mabs.grhfso.model.Qualification[ idQualification=" + idQualification + " ]";
     }
     
 }

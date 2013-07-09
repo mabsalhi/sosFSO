@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package com.sos.mabs.fso.grh.entities;
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -19,13 +18,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author mab.salhi
+ * @author infoFSO5
  */
 @Entity
 @Table(name = "t_situation")
@@ -33,11 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Situation.findAll", query = "SELECT s FROM Situation s"),
     @NamedQuery(name = "Situation.findByIdSituation", query = "SELECT s FROM Situation s WHERE s.idSituation = :idSituation"),
+    @NamedQuery(name = "Situation.findByDateEffet", query = "SELECT s FROM Situation s WHERE s.dateEffet = :dateEffet"),
     @NamedQuery(name = "Situation.findByEchelon", query = "SELECT s FROM Situation s WHERE s.echelon = :echelon"),
     @NamedQuery(name = "Situation.findByNumeroIndicatif", query = "SELECT s FROM Situation s WHERE s.numeroIndicatif = :numeroIndicatif"),
-    @NamedQuery(name = "Situation.findByDateEffet", query = "SELECT s FROM Situation s WHERE s.dateEffet = :dateEffet"),
-    @NamedQuery(name = "Situation.findBySalaireEstimatif", query = "SELECT s FROM Situation s WHERE s.salaireEstimatif = :salaireEstimatif"),
-    @NamedQuery(name = "Situation.findByRemarques", query = "SELECT s FROM Situation s WHERE s.remarques = :remarques")})
+    @NamedQuery(name = "Situation.findByRemarques", query = "SELECT s FROM Situation s WHERE s.remarques = :remarques"),
+    @NamedQuery(name = "Situation.findBySalaireEstimatif", query = "SELECT s FROM Situation s WHERE s.salaireEstimatif = :salaireEstimatif")})
 public class Situation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,44 +44,34 @@ public class Situation implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_situation")
     private Integer idSituation;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "echelon")
-    private int echelon;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "numero_indicatif")
-    private int numeroIndicatif;
-    @Basic(optional = false)
-    @NotNull
+   @Version
+    @Column(name = "version")
+    private Integer version;
     @Column(name = "date_effet")
     @Temporal(TemporalType.DATE)
     private Date dateEffet;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "salaire_estimatif")
-    private Float salaireEstimatif;
+    @Column(name = "echelon")
+    private Integer echelon;
+    @Column(name = "numero_indicatif")
+    private Integer numeroIndicatif;
     @Size(max = 255)
     @Column(name = "remarques")
     private String remarques;
-    @JoinColumn(name = "id_cadre", referencedColumnName = "id_cadre")
-    @ManyToOne(optional = false)
-    private Cadre cadre;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "salaire_estimatif")
+    private Float salaireEstimatif;
     @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Personne personne;
+    @JoinColumn(name = "id_cadre", referencedColumnName = "id_cadre")
+    @ManyToOne
+    private Cadre cadre;
 
     public Situation() {
     }
 
     public Situation(Integer idSituation) {
         this.idSituation = idSituation;
-    }
-
-    public Situation(Integer idSituation, int echelon, int numeroIndicatif, Date dateEffet) {
-        this.idSituation = idSituation;
-        this.echelon = echelon;
-        this.numeroIndicatif = numeroIndicatif;
-        this.dateEffet = dateEffet;
     }
 
     public Integer getIdSituation() {
@@ -93,20 +82,12 @@ public class Situation implements Serializable {
         this.idSituation = idSituation;
     }
 
-    public int getEchelon() {
-        return echelon;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setEchelon(int echelon) {
-        this.echelon = echelon;
-    }
-
-    public int getNumeroIndicatif() {
-        return numeroIndicatif;
-    }
-
-    public void setNumeroIndicatif(int numeroIndicatif) {
-        this.numeroIndicatif = numeroIndicatif;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public Date getDateEffet() {
@@ -117,12 +98,20 @@ public class Situation implements Serializable {
         this.dateEffet = dateEffet;
     }
 
-    public Float getSalaireEstimatif() {
-        return salaireEstimatif;
+    public Integer getEchelon() {
+        return echelon;
     }
 
-    public void setSalaireEstimatif(Float salaireEstimatif) {
-        this.salaireEstimatif = salaireEstimatif;
+    public void setEchelon(Integer echelon) {
+        this.echelon = echelon;
+    }
+
+    public Integer getNumeroIndicatif() {
+        return numeroIndicatif;
+    }
+
+    public void setNumeroIndicatif(Integer numeroIndicatif) {
+        this.numeroIndicatif = numeroIndicatif;
     }
 
     public String getRemarques() {
@@ -133,12 +122,12 @@ public class Situation implements Serializable {
         this.remarques = remarques;
     }
 
-    public Cadre getCadre() {
-        return cadre;
+    public Float getSalaireEstimatif() {
+        return salaireEstimatif;
     }
 
-    public void setCadre(Cadre cadre) {
-        this.cadre = cadre;
+    public void setSalaireEstimatif(Float salaireEstimatif) {
+        this.salaireEstimatif = salaireEstimatif;
     }
 
     public Personne getPersonne() {
@@ -149,6 +138,15 @@ public class Situation implements Serializable {
         this.personne = personne;
     }
 
+    public Cadre getCadre() {
+        return cadre;
+    }
+
+    public void setCadre(Cadre cadre) {
+        this.cadre = cadre;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -171,7 +169,7 @@ public class Situation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Situation[ idSituation=" + idSituation + " ]";
+        return "com.sos.mabs.grhfso.model.Situation[ idSituation=" + idSituation + " ]";
     }
     
 }
