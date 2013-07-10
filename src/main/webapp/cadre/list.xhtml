@@ -19,13 +19,13 @@ and open the template in the editor.
             <p:dataTable value="#{cadreController.all}" var="item"
                          paginator="true" rows="5" sortMode="multiple" selectionMode="single"
                          selection="#{cadreController.current}" rowKey="#{item.idCadre}">
-                <p:column sortBy="#{item.intitule}" filterBy="#{item.intitule}">
+                <p:column filterBy="#{item.intitule}">
                     <f:facet name="header">
                         <h:outputText value="Intitule"/>
                     </f:facet>
                     <h:commandLink value="#{item.intitule}" action="#{cadreController.showDetails(item)}"/>
                 </p:column>
-                <p:column>
+                <p:column sortBy="#{item.echelle}">
                     <f:facet name="header">
                         <h:outputText value="echelle"/>
                     </f:facet>

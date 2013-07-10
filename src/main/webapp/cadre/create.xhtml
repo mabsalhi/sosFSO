@@ -5,63 +5,30 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Nouveau Cadre</title>
-            </f:facet>
-        </h:head>
-
-        <h:body>
-
-            <p:layout fullPage="true">
-
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
-                        </p:submenu>
-
-                    </p:menu>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
+           <h:head>
+        <h1>Detail du Cadre</h1>
+</h:head>
+    <h:body>
+        <div>Detail du Cadre</div>
+        <p:messages for="update"/>
+            <h1><h:outputText value="Create/Edit"/></h1>
                     <h:form>  
                         <p:panelGrid columns="3">
                             <p:outputLabel value="Intitule du cadre" for="intitule"/>
-                            <p:inputText value="#{cadreController.current.intitule}" required="true"
+                            <p:inputText value="#{cadreController.nouveau.intitule}" required="true"
                                          id="intitule"/>
                             <p:outputLabel/>
                             <p:outputLabel value="Echelle" for="echelle"/>
-                            <p:inputText value="#{cadreController.current.echelle}" required="true"
+                            <p:inputText value="#{cadreController.nouveau.echelle}" required="true"
                                          id="echelle"/>
                             <p:outputLabel/>
                             <p:outputLabel value="description du cadre" for="description"/>
-                            <p:inputText value="#{cadreController.current.description}" required="true"
+                            <p:inputTextarea value="#{cadreController.nouveau.description}" required="true"
                                          id="description"/>
                             <p:outputLabel/>
                         </p:panelGrid>
-                        <p:commandButton action="#{cadreController.update}" value="Ajouter"/>
-</h:form>  
-                </p:layoutUnit>
-
-            </p:layout>
-
-        </h:body>
-
-    </f:view>
+                        <p:commandButton action="#{cadreController.doCreate}" value="Ajouter"/>
+</h:form>
+        
+    </h:body>
 </html>
-

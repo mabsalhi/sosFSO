@@ -28,6 +28,15 @@ public class CadreController implements Serializable {
     private CadreFacade ejbFacade;
     private Cadre current = null;
     private List<Cadre> cadres = null;
+    private Cadre nouveau = new Cadre();
+
+    public Cadre getNouveau() {
+        return nouveau;
+    }
+
+    public void setNouveau(Cadre nouveau) {
+        this.nouveau = nouveau;
+    }
 
     public CadreController() {
     }
@@ -47,24 +56,29 @@ public class CadreController implements Serializable {
     
     public String showDetails(Cadre item){
         this.current = item;
-        return "detail?faces-redirect=true";
+        return "detail";
+    }
+    
+    public String doCreate(){
+        ejbFacade.create(nouveau);
+        return "list";
     }
     
     public String showList(){
         this.getAll();
-        return "list?faces-redirect=true";
+        return "list";
     }
 
     public String doUpdate(){
         try {
             current = ejbFacade.update(current);
         addMessage("update", FacesMessage.SEVERITY_INFO, "La mise a jour de l'enregistrement : " + this.current.getIntitule() + " a ete effectuer", "Succes !!");
-        return "list?faces-redirect=true";
+        return "list";
             
         } catch (Exception e) {
             addMessage("update", FacesMessage.SEVERITY_FATAL, "Une autre personne a modifier l'enregistrement : " + this.current.getIntitule() + ", veuillez recharger les donnees et reassayer ", "Fail !!");
             
-        return "detail?faces-redirect=true";
+        return "detail";
         }
         
     }
