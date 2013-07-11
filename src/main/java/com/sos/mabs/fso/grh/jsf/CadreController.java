@@ -7,12 +7,14 @@ package com.sos.mabs.fso.grh.jsf;
 
 import com.sos.mabs.fso.grh.ejb.CadreFacade;
 import com.sos.mabs.fso.grh.entities.Cadre;
+import com.sun.org.apache.xpath.internal.axes.ContextNodeList;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 /**
@@ -56,29 +58,35 @@ public class CadreController implements Serializable {
     
     public String showDetails(Cadre item){
         this.current = item;
-        return "detail";
+        return "detail?faces-redirect=true";
     }
     
     public String doCreate(){
         ejbFacade.create(nouveau);
-        return "list";
+        return "list?faces-redirect=true";
     }
     
     public String showList(){
         this.getAll();
-        return "list";
+        return "list?faces-redirect=true";
     }
 
     public String doUpdate(){
         try {
             current = ejbFacade.update(current);
+            FacesContext context = FacesContext.getCurrentInstance();
+            Flash flash = context.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
         addMessage("update", FacesMessage.SEVERITY_INFO, "La mise a jour de l'enregistrement : " + this.current.getIntitule() + " a ete effectuer", "Succes !!");
-        return "list";
+        return "list?faces-redirect=true";
             
         } catch (Exception e) {
-            addMessage("update", FacesMessage.SEVERITY_FATAL, "Une autre personne a modifier l'enregistrement : " + this.current.getIntitule() + ", veuillez recharger les donnees et reassayer ", "Fail !!");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Flash flash = context.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            addMessage("error", FacesMessage.SEVERITY_FATAL, "Une autre personne a modifier l'enregistrement : " + this.current.getIntitule() + ", veuillez revenir sur la liste, revoir les donnees et reassayer ", "Fail !!");
             
-        return "detail";
+        return "detail?faces-redirect=true";
         }
         
     }

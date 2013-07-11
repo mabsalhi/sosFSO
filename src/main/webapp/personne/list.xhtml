@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Liste des personne</h1>
+</h:head>
+    <h:body>
+        <div>List des Personnes</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:dataTable value="#{personneController.personnes}" var="item"
+                         paginator="true" rows="5" sortMode="multiple" selectionMode="single"
+                         selection="#{personneController.current}" rowKey="#{item.idPersonne}">
+                <p:column filterBy="#{item.cin}">
+                    <f:facet name="header">
+                        <h:outputText value="CIN"/>
+                    </f:facet>
+                    <h:commandLink value="#{item.cin}" action="#{personneController.showDetails(item)}"/>
+                </p:column>
+                <p:column sortBy="#{item.nom}">
+                    <f:facet name="header">
+                        <h:outputText value="Nom"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nom}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Prenom"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prenom}"/>
+                </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date de naissance"/>
+                    </f:facet>
+                     <h:outputText value="#{item.dateNaissance}"/>
+                </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="numero de SOM"/>
+                    </f:facet>
+                     <h:outputText value="#{item.som}"/>
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+        
+    </h:body>
+</html>

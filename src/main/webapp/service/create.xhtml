@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Detail du Cadre</h1>
+</h:head>
+    <h:body>
+        <div>Detail du Cadre</div>
+        <p:messages for="error"/>
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Nom:" for="Intitule" />
+                    <p:inputText id="intitule" value="#{serviceController.nouveau.intitule}" title="Intitule" required="true" requiredMessage="The Nom field is required."/>
+                    <h:outputLabel value="Prenom:" for="prenom" />
+                    <p:inputTextarea id="description" value="#{serviceController.nouveau.description}" title="Description" required="true" requiredMessage="The Prenom field is required."/>
+                    <p:commandButton value="Appliquer Les Modification" action="#{serviceController.doCreate}"/>
+                </p:panelGrid>
+                
+           
+            </h:form>
+   
+
+        
+    </h:body>
+</html>

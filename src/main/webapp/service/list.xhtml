@@ -5,28 +5,22 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <h1>Liste des personne</h1>
+        <h1>Liste des services</h1>
 </h:head>
     <h:body>
-        <div>List des Personnes</div>
+        <div>List des Services</div>
         <p:messages for="update"/>
         <h:form>
-            <p:dataTable value="#{cadreController.all}" var="item"
+            <p:dataTable value="#{serviceController.services}" var="item"
                          paginator="true" rows="5" sortMode="multiple" selectionMode="single"
-                         selection="#{cadreController.current}" rowKey="#{item.idCadre}">
+                         selection="#{serviceController.current}" rowKey="#{item.idService}">
                 <p:column filterBy="#{item.intitule}">
                     <f:facet name="header">
                         <h:outputText value="Intitule"/>
                     </f:facet>
-                    <h:commandLink value="#{item.intitule}" action="#{cadreController.showDetails(item)}"/>
+                    <h:commandLink value="#{item.intitule}" action="#{serviceController.showDetails(item)}"/>
                 </p:column>
-                <p:column sortBy="#{item.echelle}">
-                    <f:facet name="header">
-                        <h:outputText value="echelle"/>
-                    </f:facet>
-                    <h:outputText value="#{item.echelle}"/>
-                </p:column>
-                <p:column>
+                <p:column sortBy="#{item.description}">
                     <f:facet name="header">
                         <h:outputText value="Description"/>
                     </f:facet>

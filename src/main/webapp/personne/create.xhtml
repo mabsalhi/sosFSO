@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Detail du Cadre</h1>
+</h:head>
+    <h:body>
+        <div>Detail du Cadre</div>
+        <p:messages for="error"/>
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Cin:" for="cin" />
+                    <p:inputText id="cin" value="#{personneController.nouveau.cin}" title="Cin" required="true" requiredMessage="The Cin field is required."/>
+                    <h:outputLabel value="Nom:" for="nom" />
+                    <p:inputText id="nom" value="#{personneController.nouveau.nom}" title="Nom" required="true" requiredMessage="The Nom field is required."/>
+                    <h:outputLabel value="Prenom:" for="prenom" />
+                    <p:inputText id="prenom" value="#{personneController.nouveau.prenom}" title="Prenom" required="true" requiredMessage="The Prenom field is required."/>
+                    <h:outputLabel value="NomAr:" for="nomAr" />
+                    <p:inputText id="nomAr" value="#{personneController.nouveau.nomAr}" title="NomAr" />
+                    <h:outputLabel value="PrenomAr:" for="prenomAr" />
+                    <p:inputText id="prenomAr" value="#{personneController.nouveau.prenomAr}" title="PrenomAr" />
+                    <h:outputLabel value="DateNaissance:" for="dateNaissance" />
+                    <p:calendar id="dateNaissance" value="#{personneController.nouveau.dateNaissance}" 
+                                mode="popup" pattern="dd/MM/yyyy" />
+                        
+                    <h:outputLabel value="LieuNaissance:" for="lieuNaissance" />
+                    <p:inputText id="lieuNaissance" value="#{personneController.nouveau.lieuNaissance}" title="LieuNaissance" />
+                    <h:outputLabel value="Telephonne:" for="telephonne" />
+                    <p:inputText id="telephonne" value="#{personneController.nouveau.telephonne}" title="Telephonne" />
+                    <h:outputLabel value="Adresse:" for="adresse" />
+                    <p:inputText id="adresse" value="#{personneController.nouveau.adresse}" title="Adresse" />
+                    <h:outputLabel value="EtatMatrimonial:" for="etatMatrimonial" />
+                    <p:inputText id="etatMatrimonial" value="#{personneController.nouveau.etatMatrimonial}" title="EtatMatrimonial" />
+                    <h:outputLabel value="NbEnfants:" for="nbEnfants" />
+                    <p:inputText id="nbEnfants" value="#{personneController.nouveau.nbEnfants}" title="NbEnfants" />
+                    <h:outputLabel value="Photo:" for="photo" />
+                    <p:fileUpload id="photo" value="#{personneController.nouveau.photo}" />
+                    <h:outputLabel value="Som:" for="som" />
+                    <p:inputText id="som" value="#{personneController.nouveau.som}" title="Som" />
+                    <h:outputLabel value="DateRecrutement:" for="dateRecrutement" />
+                    <p:inputText id="dateRecrutement" value="#{personneController.nouveau.dateRecrutement}" title="DateRecrutement" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <h:outputLabel value="PosteBudgetaire:" for="posteBudgetaire" />
+                    <p:inputText id="posteBudgetaire" value="#{personneController.nouveau.posteBudgetaire}" title="PosteBudgetaire" />
+                    
+                    <p:commandButton value="Appliquer Les Modification" action="#{personneController.doCreate}"/>
+                </p:panelGrid>
+                
+           
+            </h:form>
+   
+
+        
+    </h:body>
+</html>

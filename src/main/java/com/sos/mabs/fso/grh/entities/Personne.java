@@ -57,7 +57,7 @@ public class Personne implements Serializable {
     @Column(name = "id_personne")
     private Integer idPersonne;
     @Version
-    @Column(name = "version", nullable = true)    
+    @Column(name = "version")    
     private Integer version;
     @Basic(optional = false)
     @NotNull
