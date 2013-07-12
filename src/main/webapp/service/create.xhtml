@@ -14,22 +14,21 @@ and open the template in the editor.
 </h:head>
     <h:body>
         <div>Detail du Cadre</div>
-        <p:messages for="error"/>
-
-            <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <p:panelGrid columns="2">
-                    <h:outputLabel value="Nom:" for="Intitule" />
-                    <p:inputText id="intitule" value="#{serviceController.nouveau.intitule}" title="Intitule" required="true" requiredMessage="The Nom field is required."/>
-                    <h:outputLabel value="Prenom:" for="prenom" />
-                    <p:inputTextarea id="description" value="#{serviceController.nouveau.description}" title="Description" required="true" requiredMessage="The Prenom field is required."/>
-                    <p:commandButton value="Appliquer Les Modification" action="#{serviceController.doCreate}"/>
-                </p:panelGrid>
-                
-           
-            </h:form>
-   
-
+        <p:messages for="update"/>
+            <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:form>  
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="Intitule du service" for="intitule"/>
+                            <p:inputText value="#{serviceController.nouveau.intitule}" required="true"
+                                         id="intitule"/>
+                            <p:outputLabel/>
+                            <p:outputLabel value="description du service" for="description"/>
+                            <p:inputTextarea value="#{serviceController.nouveau.description}" required="true"
+                                         id="description"/>
+                            <p:outputLabel/>
+                        </p:panelGrid>
+                        <p:commandButton action="#{serviceController.doCreate}" value="Ajouter"/>
+</h:form>
         
     </h:body>
 </html>

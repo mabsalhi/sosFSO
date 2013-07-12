@@ -23,8 +23,6 @@ and open the template in the editor.
                     <p:inputText id="intitule" value="#{serviceController.current.intitule}" title="Intitule" required="true" requiredMessage="The Cin field is required."/>
                     <h:outputLabel value="Description:" for="description" />
                     <p:inputTextarea id="description" value="#{serviceController.current.description}" title="Nom" required="true" requiredMessage="The Nom field is required."/>
-                    <h:outputLabel value="Prenom:" for="prenom" />
-                    <p:inputText id="prenom" value="#{serviceController.current.prenom}" title="Prenom" required="true" requiredMessage="The Prenom field is required."/>
                     
                     <p:commandButton value="Appliquer Les Modification" action="#{serviceController.doUpdate}"/>
                 </p:panelGrid>

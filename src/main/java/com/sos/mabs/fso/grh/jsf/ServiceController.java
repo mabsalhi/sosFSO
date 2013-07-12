@@ -62,17 +62,12 @@ public class ServiceController implements Serializable{
     }
     
     public String doCreate(){
-        try {
+        
             ejbFacade.create(nouveau);
-            addMessage("update", FacesMessage.SEVERITY_INFO, "Nouvel Enregistrement ajouter avec succes", "Succes !!");
-            this.nouveau = null;
+            this.nouveau.setIntitule(null);
+            this.nouveau.setDescription(null);
         return "list?faces-redirect=true";
         
-        } catch (Exception e) {
-            addMessage("update", FacesMessage.SEVERITY_INFO, "Erreur lors de la tentative d'ajout", "Succes !!");
-            this.nouveau = null;
-        return "list?faces-redirect=true";
-        }
         
     }
     
