@@ -1,66 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <h1>Detail du Cadre</h1>
-</h:head>
-    <h:body>
-        <div>Detail du Cadre</div>
+<ui:composition 
+    
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../template.xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
         <p:messages for="error"/>
 
             <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <p:panelGrid columns="2">
-                    <h:outputLabel value="Cin:" for="cin" />
-                    <p:inputText id="cin" value="#{personneController.current.cin}" title="Cin" required="true" requiredMessage="The Cin field is required."/>
+                <p:panelGrid id="numeros" columns="2">
+                    <h:outputText value="Numero de SOM"/>
+                    <p:outputLabel id="som" value="#{personneController.current.som}" title="som"/>
+                    <h:outputText value="Poste Budgetaire"/>
+                    <p:outputLabel id="posteBudgetaire" value="#{personneController.current.posteBudgetaire}" title="PosteBudgetaire"/>
+                    <h:outputText value="C.I.N"/>
+                    <p:outputLabel id="cin" value="#{personneController.current.cin}" title="cin"/>
+                </p:panelGrid>
+                
+                <h1><h:outputText value="Fiche des Renseignements et Informations Personelle"/></h1>
+                <p:panelGrid id="nomfr" columns="2">
                     <h:outputLabel value="Nom:" for="nom" />
-                    <p:inputText id="nom" value="#{personneController.current.nom}" title="Nom" required="true" requiredMessage="The Nom field is required."/>
+                    <p:outputLabel id="nom" value="#{personneController.current.nom}" 
+                                 title="Nom" />
                     <h:outputLabel value="Prenom:" for="prenom" />
-                    <p:inputText id="prenom" value="#{personneController.current.prenom}" title="Prenom" required="true" requiredMessage="The Prenom field is required."/>
+                    <p:outputLabel id="prenom" value="#{personneController.current.prenom}" 
+                                 title="Prenom" />
+                    </p:panelGrid>
+                <p:panelGrid id="naomar" columns="2">
                     <h:outputLabel value="NomAr:" for="nomAr" />
-                    <p:inputText id="nomAr" value="#{personneController.current.nomAr}" title="NomAr" />
+                    <p:outputLabel id="nomAr" value="#{personneController.current.nomAr}" title="NomAr" />
                     <h:outputLabel value="PrenomAr:" for="prenomAr" />
-                    <p:inputText id="prenomAr" value="#{personneController.current.prenomAr}" title="PrenomAr" />
+                    <p:outputLabel id="prenomAr" 
+                                 value="#{personneController.current.prenomAr}" title="PrenomAr" />
+                    </p:panelGrid>
+                <p:panelGrid columns="2">
                     <h:outputLabel value="DateNaissance:" for="dateNaissance" />
-                    <p:inputText id="dateNaissance" value="#{personneController.current.dateNaissance}" title="DateNaissance" >
+                    <p:outputLabel id="dateNaissance" 
+                                 value="#{personneController.current.dateNaissance}" title="DateNaissance" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </p:inputText>
+                    </p:outputLabel>
                     <h:outputLabel value="LieuNaissance:" for="lieuNaissance" />
-                    <p:inputText id="lieuNaissance" value="#{personneController.current.lieuNaissance}" title="LieuNaissance" />
+                    <p:outputLabel id="lieuNaissance" 
+                                 value="#{personneController.current.lieuNaissance}" title="LieuNaissance" />
                     <h:outputLabel value="Telephonne:" for="telephonne" />
-                    <p:inputText id="telephonne" value="#{personneController.current.telephonne}" title="Telephonne" />
+                    <p:outputLabel id="telephonne" 
+                                 value="#{personneController.current.telephonne}" title="Telephonne" />
                     <h:outputLabel value="Adresse:" for="adresse" />
-                    <p:inputText id="adresse" value="#{personneController.current.adresse}" title="Adresse" />
+                    <p:outputLabel id="adresse" 
+                                 value="#{personneController.current.adresse}" title="Adresse" />
                     <h:outputLabel value="EtatMatrimonial:" for="etatMatrimonial" />
-                    <p:inputText id="etatMatrimonial" value="#{personneController.current.etatMatrimonial}" title="EtatMatrimonial" />
+                    <p:outputLabel id="etatMatrimonial" 
+                                 value="#{personneController.current.etatMatrimonial}" title="EtatMatrimonial" />
                     <h:outputLabel value="NbEnfants:" for="nbEnfants" />
-                    <p:inputText id="nbEnfants" value="#{personneController.current.nbEnfants}" title="NbEnfants" />
+                    <p:outputLabel id="nbEnfants" 
+                                 value="#{personneController.current.nbEnfants}" title="NbEnfants" />
                     <h:outputLabel value="Photo:" for="photo" />
-                    <p:inputTextarea rows="4" cols="30" id="photo" value="#{personneController.current.photo}" title="Photo" />
-                    <h:outputLabel value="Som:" for="som" />
-                    <p:inputText id="som" value="#{personneController.current.som}" title="Som" />
+                    <p:outputLabel id="photo" 
+                                     value="#{personneController.current.photo}" title="Photo" />
                     <h:outputLabel value="DateRecrutement:" for="dateRecrutement" />
-                    <p:inputText id="dateRecrutement" value="#{personneController.current.dateRecrutement}" title="DateRecrutement" >
+                    <p:outputLabel id="dateRecrutement" 
+                                 value="#{personneController.current.dateRecrutement}" title="DateRecrutement" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </p:inputText>
-                    <h:outputLabel value="PosteBudgetaire:" for="posteBudgetaire" />
-                    <p:inputText id="posteBudgetaire" value="#{personneController.current.posteBudgetaire}" title="PosteBudgetaire" />
-                    
+                    </p:outputLabel>
+                      
                     <p:commandButton value="Appliquer Les Modification" action="#{personneController.doUpdate}"/>
                 </p:panelGrid>
                 
            
             </h:form>
    
-
-        
-    </h:body>
-</html>
+</ui:composition>

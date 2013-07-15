@@ -39,6 +39,11 @@
             <artifactId>primefaces</artifactId>
             <version>3.5</version>
         </dependency>
+        <dependency>  
+    <groupId>org.primefaces.themes</groupId>  
+    <artifactId>all-themes</artifactId>  
+    <version>1.0.9</version>  
+</dependency> 
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -114,5 +119,6 @@
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
         </repository>
+        
     </repositories>
 </project>
