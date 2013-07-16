@@ -139,7 +139,7 @@ public class Cadre implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.grhfso.model.Cadre[ idCadre=" + idCadre + " ]";
+        return this.intitule;
     }
     
 }

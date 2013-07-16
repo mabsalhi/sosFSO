@@ -1,10 +1,13 @@
-<ui:composition 
-    
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="../template.xhtml"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Detail de la personne</h1>
+</h:head>
+    <h:body>
         <p:messages for="error"/>
 
             <h:form>
@@ -66,7 +69,40 @@
                     <p:commandButton value="Appliquer Les Modification" action="#{personneController.doUpdate}"/>
                 </p:panelGrid>
                 
+                <p:dataTable value="#{personneController.current.situationList}" var="sit">
+                  <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cadre"/>
+                    </f:facet>
+                      <h:outputText value="#{sit.cadre.intitule}"/>
+                </p:column> 
+                    <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Echelle"/>
+                    </f:facet>
+                        <h:outputText value="#{sit.cadre.echelle}"/>
+                </p:column>
+                    <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date effet"/>
+                    </f:facet>
+                        <h:outputText value="#{sit.dateEffet}"/>
+                </p:column>
+                        <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Echellon"/>
+                    </f:facet>
+                            <h:outputText value="#{sit.echelon}"/>
+                </p:column>
+                    <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Salaire estimatif"/>
+                    </f:facet>
+                        <h:outputText value="#{sit.salaireEstimatif}"/>
+                </p:column>
+                </p:dataTable>
            
             </h:form>
-   
-</ui:composition>
+       
+    </h:body>
+</html>
