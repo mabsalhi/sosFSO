@@ -68,7 +68,8 @@
                       
                     <p:commandButton value="Appliquer Les Modification" action="#{personneController.doUpdate}"/>
                 </p:panelGrid>
-                
+                <p:panel id="Situaions">
+                    <p:commandLink value="Ajouter Nouvelle Situation" action="#{personneController.addSituationForm}"/>
                 <p:dataTable value="#{personneController.current.situationList}" var="sit">
                   <p:column>
                     <f:facet name="header">
@@ -101,7 +102,7 @@
                         <h:outputText value="#{sit.salaireEstimatif}"/>
                 </p:column>
                 </p:dataTable>
-           
+      </p:panel>     
             </h:form>
        
     </h:body>

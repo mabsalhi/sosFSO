@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Detail du Cadre</h1>
+</h:head>
+    <h:body>
+        <div>Detail du Cadre</div>
+        <p:messages for="error"/>
+
+            <h:form>
+                <h:outputLabel value="#{personneController.current.som}"/>  
+                <h:outputLabel value="#{personneController.current.nom}"/>
+                
+                <p:selectOneMenu value="#{personneController.selectedCadre}" var="c">
+                    
+                    <f:selectItem itemLabel="Slecetionez un Cadre" itemValue=""/>
+                    <f:selectItems value="#{personneController.cadres}"/>
+                    <p:column>
+                        #{c.intitule} - #{c.echelle}
+                    </p:column>
+                </p:selectOneMenu>
+                
+                <h:outputLabel value="Date d'effet"/>
+                <p:calendar value="#{personneController.dateEffet}" mode="popup" pattern="dd/MM/yyyy"/>
+                
+                <h:outputLabel value="Echelon"/>
+                <p:inputText value="#{personneController.echelon}"/>
+                
+                <h:outputLabel value="Salaire estimatif"/>
+                <p:inputText value="#{personneController.salaireEstimatif}"/>
+                
+                <h:outputLabel value="numero Indicatif"/>
+                <p:inputText value="#{personneController.numeroIndicatif}"/>
+                
+                <h:outputLabel value="Remarques"/>
+                <p:inputTextarea value="#{personneController.remarques}"/>
+                
+                <p:commandButton value="Ajouter Situation" action="#{personneController.add}"/>
+           
+            </h:form>
+   
+
+        
+    </h:body>
+</html>

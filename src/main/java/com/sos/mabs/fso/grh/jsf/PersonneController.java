@@ -4,9 +4,12 @@
  */
 package com.sos.mabs.fso.grh.jsf;
 
+import com.sos.mabs.fso.grh.ejb.CadreFacade;
 import com.sos.mabs.fso.grh.ejb.PersonneFacade;
+import com.sos.mabs.fso.grh.entities.Cadre;
 import com.sos.mabs.fso.grh.entities.Personne;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -14,7 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.eclipse.persistence.internal.libraries.asm.tree.TryCatchBlockNode;
 
 /**
  *
@@ -26,13 +28,38 @@ public class PersonneController implements Serializable{
 
     @Inject
     private PersonneFacade ejbFacade;
+    @Inject
+    private CadreFacade cadreFacade;
+    
     private Personne current = null;
     private List<Personne> personnes = null;
     private Personne nouveau = new Personne();
     
+    private Cadre selectedCadre = null;
+    private List<Cadre> cadres;
+    
+    private Date dateEffet;
+    private int echelon;
+    private Float salaireEstimatif;
+    private int numeroIndicatif;
+    private String remarques;
+    
+    
     public PersonneController() {
     }
 
+    public void add(){
+        Personne updatedPersonne = ejbFacade.addSituation(current, selectedCadre, dateEffet, echelon, numeroIndicatif, remarques, salaireEstimatif);
+        System.out.println("le cadre selectionnee est :" + selectedCadre);
+        current = updatedPersonne;
+        showDetails(current);        
+    }
+    
+    public String addSituationForm(){
+        return "addSituation?faces-redirect=true";
+    }
+    
+    
     public Personne getCurrent() {
         return current;
     }
@@ -43,6 +70,76 @@ public class PersonneController implements Serializable{
 
     public List<Personne> getPersonnes() {
         return ejbFacade.findAll();
+    }
+
+    public List<Cadre> getCadres(){
+        return cadreFacade.findAll();
+    }
+    
+    public PersonneFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(PersonneFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public CadreFacade getCadreFacade() {
+        return cadreFacade;
+    }
+
+    public void setCadreFacade(CadreFacade cadreFacade) {
+        this.cadreFacade = cadreFacade;
+    }
+
+    
+    
+    public Date getDateEffet() {
+        return dateEffet;
+    }
+
+    public void setDateEffet(Date dateEffet) {
+        this.dateEffet = dateEffet;
+    }
+
+    public int getEchelon() {
+        return echelon;
+    }
+
+    public void setEchelon(int echelon) {
+        this.echelon = echelon;
+    }
+
+    public Float getSalaireEstimatif() {
+        return salaireEstimatif;
+    }
+
+    public void setSalaireEstimatif(Float salaireEstimatif) {
+        this.salaireEstimatif = salaireEstimatif;
+    }
+
+    public int getNumeroIndicatif() {
+        return numeroIndicatif;
+    }
+
+    public void setNumeroIndicatif(int numeroIndicatif) {
+        this.numeroIndicatif = numeroIndicatif;
+    }
+
+    public String getRemarques() {
+        return remarques;
+    }
+
+    public void setRemarques(String remarques) {
+        this.remarques = remarques;
+    }
+
+    public Cadre getSelectedCadre() {
+        return selectedCadre;
+    }
+
+    public void setSelectedCadre(Cadre selectedCadre) {
+        this.selectedCadre = selectedCadre;
     }
 
     

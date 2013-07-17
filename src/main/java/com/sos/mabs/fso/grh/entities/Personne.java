@@ -5,8 +5,10 @@
 package com.sos.mabs.fso.grh.entities;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -111,8 +113,8 @@ public class Personne implements Serializable {
     private List<Qualification> qualificationList;
     @OneToMany(mappedBy = "personne")
     private List<Affectation> affectationList;
-    @OneToMany(mappedBy = "personne")
-    private List<Situation> situationList;
+    @OneToMany(mappedBy = "personne", cascade=CascadeType.ALL, orphanRemoval=true)
+    private List<Situation> situationList = new LinkedList<Situation>();
 
     public Personne() {
     }
@@ -126,6 +128,16 @@ public class Personne implements Serializable {
         this.dateRecrutement = dateRecrutement;
     }
 
+    
+    public void addSituation(Situation situation){
+        situation.setPersonne(this);
+        situationList.add(situation);
+    }
+    
+    public void remove(Situation situation) {
+        situationList.remove(situation);
+    }
+    
     
     public Personne(Integer idPersonne) {
         this.idPersonne = idPersonne;

@@ -70,6 +70,17 @@ public class Situation implements Serializable {
     public Situation() {
     }
 
+    public Situation(Cadre cadre, Date dateEffet, Integer echelon, Integer numeroIndicatif, String remarques, Float salaireEstimatif) {
+        this.dateEffet = dateEffet;
+        this.echelon = echelon;
+        this.numeroIndicatif = numeroIndicatif;
+        this.remarques = remarques;
+        this.salaireEstimatif = salaireEstimatif;
+        this.cadre = cadre;
+    }
+    
+    
+
     public Situation(Integer idSituation) {
         this.idSituation = idSituation;
     }
