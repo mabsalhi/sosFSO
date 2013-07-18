@@ -11,6 +11,8 @@ import com.sos.mabs.fso.grh.entities.Personne;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,6 +28,9 @@ import javax.inject.Named;
 @SessionScoped
 public class PersonneController implements Serializable{
 
+    private static final Logger logger = Logger.getLogger(PersonneController.class.getName());
+    
+    
     @Inject
     private PersonneFacade ejbFacade;
     @Inject
@@ -49,8 +54,9 @@ public class PersonneController implements Serializable{
     }
 
     public void add(){
+        
+        logger.log(Level.INFO, "le cadre recuperer est " + selectedCadre + " !!");
         Personne updatedPersonne = ejbFacade.addSituation(current, selectedCadre, dateEffet, echelon, numeroIndicatif, remarques, salaireEstimatif);
-        System.out.println("le cadre selectionnee est :" + selectedCadre);
         current = updatedPersonne;
         showDetails(current);        
     }

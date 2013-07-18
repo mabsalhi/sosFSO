@@ -4,6 +4,7 @@
  */
 package com.sos.mabs.fso.grh.jsfUtil;
 
+import com.sos.mabs.fso.grh.ejb.PersonneFacade;
 import com.sos.mabs.fso.grh.entities.Cadre;
 import com.sos.mabs.fso.grh.jsf.PersonneController;
 import javax.faces.component.UIComponent;
@@ -24,9 +25,9 @@ public class CadreConverter implements Converter{
             return null;
         }
         Integer id = new Integer(value);
-        PersonneController controller = (PersonneController) context.getApplication()
+        PersonneFacade controller = (PersonneFacade) context.getApplication()
                 .getELResolver().getValue(context.getELContext(), null, "cadre");
-        return controller.getCadreFacade().find(id);
+        return controller.find(id);
     }
 
     @Override
