@@ -20,7 +20,7 @@ and open the template in the editor.
                 <h:outputLabel value="#{personneController.current.som}"/>  
                 <h:outputLabel value="#{personneController.current.nom}"/>
                 <p:selectOneMenu value="#{personneController.selectedCadre}" converter="com.sos.mabs.fso.grh.jsfUtil.CadreConverter">
-                    <f:selectItems value="#{personneController.cadres}"/>
+                    <f:selectItems value="#{personneController.cadres}" var="c" itemValue="#{c.idCadre}" itemLabel="#{c.intitule}"/>
                 </p:selectOneMenu>
                 
                 <h:outputLabel value="Date d'effet"/>

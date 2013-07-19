@@ -7,7 +7,6 @@ package com.sos.mabs.fso.grh.jsf;
 
 import com.sos.mabs.fso.grh.ejb.CadreFacade;
 import com.sos.mabs.fso.grh.entities.Cadre;
-import com.sun.org.apache.xpath.internal.axes.ContextNodeList;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
