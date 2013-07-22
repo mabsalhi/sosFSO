@@ -10,6 +10,7 @@
     <h:body>
         <div>List des Personnes</div>
         <p:messages for="update"/>
+        
         <h:form>
             <p:dataTable value="#{personneController.personnes}" var="item"
                          paginator="true" rows="5" sortMode="multiple" selectionMode="single"

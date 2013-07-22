@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Nouveau Diplome</h1>
+</h:head>
+    <h:body>
+        <div></div>
+        <p:messages for="error"/>
+
+        <h:form>
+            <p:panelGrid columns="2">
+                <pre>Intitulé du diplome : </pre>
+                <p:inputText id="intitule" 
+                             value="#{diplomeController.nouveau.intitule}" required="true" requiredMessage="Veuillez saisir un intitule pour le diplome !!"/>
+                <p:message for="intitule" severity="error"/>
+                
+                <pre>Type du diplome : </pre>
+                <p:inputText id="type" 
+                             value="#{diplomeController.nouveau.type}" required="true" requiredMessage="Veuillez saisir un type pour le diplome !!"/>
+                <p:message for="type" severity="error"/>
+                
+                <pre>Description du diplome : </pre>
+                <p:inputTextarea id="description" 
+                                 value="#{diplomeController.nouveau.description}" />
+                
+            </p:panelGrid>
+            <p:commandButton value="Enregistrer" action="#{diplomeController.doCreate}"/>
+        </h:form>
+    </h:body>
+</html>

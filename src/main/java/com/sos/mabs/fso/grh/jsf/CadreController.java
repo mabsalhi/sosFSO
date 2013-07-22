@@ -12,8 +12,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 /**
@@ -89,7 +92,9 @@ public class CadreController implements Serializable {
         }
         
     }
-    
+    public Cadre getCadre(java.lang.Integer id) {
+        return ejbFacade.find(id);
+    }
     
     
     private void addMessage(String key, FacesMessage.Severity severity, String message, String detail) {
@@ -97,4 +102,6 @@ public class CadreController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(key, msg);
     }
     
+    
+   
 }

@@ -19,8 +19,8 @@ and open the template in the editor.
             <h:form>
                 <h:outputLabel value="#{personneController.current.som}"/>  
                 <h:outputLabel value="#{personneController.current.nom}"/>
-                <p:selectOneMenu value="#{personneController.selectedCadre}" converter="com.sos.mabs.fso.grh.jsfUtil.CadreConverter">
-                    <f:selectItems value="#{personneController.cadres}" var="c" itemValue="#{c.idCadre}" itemLabel="#{c.intitule}"/>
+                <p:selectOneMenu value="#{personneController.selectedCadre}">
+                    <f:selectItems value="#{cadreController.all}"/>
                 </p:selectOneMenu>
                 
                 <h:outputLabel value="Date d'effet"/>
@@ -38,7 +38,7 @@ and open the template in the editor.
                 <h:outputLabel value="Remarques"/>
                 <p:inputTextarea value="#{personneController.remarques}"/>
                 
-                <p:commandButton value="Ajouter Situation" action="#{personneController.add()}"/>
+                <p:commandButton value="Ajouter Situation" action="#{personneController.add}"/>
            
             </h:form>
    

@@ -53,12 +53,11 @@ public class PersonneController implements Serializable{
     public PersonneController() {
     }
 
-    public void add(){
-        
+    public String add(){
         logger.log(Level.INFO, "le cadre recuperer est " + selectedCadre + " !!");
         Personne updatedPersonne = ejbFacade.addSituation(current, selectedCadre, dateEffet, echelon, numeroIndicatif, remarques, salaireEstimatif);
         current = updatedPersonne;
-        showDetails(current);        
+        return showDetails(current);        
     }
     
     public String addSituationForm(){
