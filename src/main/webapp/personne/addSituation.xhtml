@@ -19,6 +19,7 @@ and open the template in the editor.
             <h:form>
                 <h:outputLabel value="#{personneController.current.som}"/>  
                 <h:outputLabel value="#{personneController.current.nom}"/>
+                
                 <p:selectOneMenu value="#{personneController.selectedCadre}">
                     <f:selectItems value="#{cadreController.all}"/>
                 </p:selectOneMenu>

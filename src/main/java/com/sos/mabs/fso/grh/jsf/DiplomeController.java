@@ -81,7 +81,7 @@ public class DiplomeController implements Serializable{
     }
     
     public String showCreate(){
-        
+        this.nouveau = new Diplome();
         return "create?faces-redirect=true";
     }
 

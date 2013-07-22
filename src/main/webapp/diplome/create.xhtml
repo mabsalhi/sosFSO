@@ -14,26 +14,26 @@ and open the template in the editor.
 </h:head>
     <h:body>
         <div></div>
-        <p:messages for="error"/>
-
         <h:form>
-            <p:panelGrid columns="2">
-                <pre>Intitulé du diplome : </pre>
+            
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Intitulé du diplome :"/>
                 <p:inputText id="intitule" 
-                             value="#{diplomeController.nouveau.intitule}" required="true" requiredMessage="Veuillez saisir un intitule pour le diplome !!"/>
-                <p:message for="intitule" severity="error"/>
+                             value="#{diplomeController.nouveau.intitule}" 
+                             required="true" requiredMessage="Veuillez saisir un initule, qui ne depasse pas 250 caractere"/>
+                <p:message for="intitule" />
                 
-                <pre>Type du diplome : </pre>
+                <p:outputLabel value="Type du diplome :"/>
                 <p:inputText id="type" 
-                             value="#{diplomeController.nouveau.type}" required="true" requiredMessage="Veuillez saisir un type pour le diplome !!"/>
-                <p:message for="type" severity="error"/>
+                             value="#{diplomeController.nouveau.type}" required="true" requiredMessage="Veuillez saisir un type"/>
+                <p:message for="type" />
                 
-                <pre>Description du diplome : </pre>
+                <p:outputLabel value="Description du diplome :"/>
                 <p:inputTextarea id="description" 
                                  value="#{diplomeController.nouveau.description}" />
                 
             </p:panelGrid>
-            <p:commandButton value="Enregistrer" action="#{diplomeController.doCreate}"/>
+            <h:commandButton value="Enregistrer" action="#{diplomeController.doCreate}"/>
         </h:form>
     </h:body>
 </html>

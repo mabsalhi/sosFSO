@@ -40,7 +40,7 @@ public class PersonneController implements Serializable{
     private List<Personne> personnes = null;
     private Personne nouveau = new Personne();
     
-    private Cadre selectedCadre = null;
+    private Cadre selectedCadre = new Cadre();
     private List<Cadre> cadres;
     
     private Date dateEffet;
@@ -77,27 +77,8 @@ public class PersonneController implements Serializable{
         return ejbFacade.findAll();
     }
 
-    public List<Cadre> getCadres(){
-        return cadreFacade.findAll();
-    }
     
-    public PersonneFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(PersonneFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-
-    public CadreFacade getCadreFacade() {
-        return cadreFacade;
-    }
-
-    public void setCadreFacade(CadreFacade cadreFacade) {
-        this.cadreFacade = cadreFacade;
-    }
-
-    
+           
     
     public Date getDateEffet() {
         return dateEffet;
@@ -163,6 +144,7 @@ public class PersonneController implements Serializable{
     }
     
     public String doCreate(){
+        logger.log(Level.INFO, "Debut de la procedure d'ajout !!");
         try {
             ejbFacade.create(nouveau);
             addMessage("update", FacesMessage.SEVERITY_INFO, "Nouvel Enregistrement ajouter avec succes", "Succes !!");
