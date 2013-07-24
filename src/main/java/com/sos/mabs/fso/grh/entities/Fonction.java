@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -64,8 +65,10 @@ public class Fonction implements Serializable{
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cadre")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fonction")
     private List<Situation> situations;
+    @ManyToOne(optional = false)
+    private Cadre cadre;
 
     // ======================================
     // = Constructors =
@@ -138,6 +141,15 @@ public class Fonction implements Serializable{
         this.situations = situations;
     }
 
+    public Cadre getCadre() {
+        return cadre;
+    }
+
+    public void setCadre(Cadre cadre) {
+        this.cadre = cadre;
+    }
+    
+    
     // ======================================
     // = Methods hash, equals, toString =
     // ======================================

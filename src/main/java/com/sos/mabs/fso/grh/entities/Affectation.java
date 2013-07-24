@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Affectation.findByDateDetachement", query = "SELECT a FROM Affectation a WHERE a.dateDetachement = :dateDetachement"),
     @NamedQuery(name = "Affectation.findByRemarques", query = "SELECT a FROM Affectation a WHERE a.remarques = :remarques")})
 public class Affectation implements Serializable {
+    
+    // ======================================
+    // = Attributes =
+    // ======================================
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,19 +72,22 @@ public class Affectation implements Serializable {
     @ManyToOne(optional = false)
     private Service service;
 
+    // ======================================
+    // = Constructors =
+    // ======================================
     public Affectation() {
     }
 
-    public Affectation(Integer idAffectation) {
-        this.idAffectation = idAffectation;
-    }
-
-    public Affectation(Integer idAffectation, Date dateAffectation, String poste) {
-        this.idAffectation = idAffectation;
+    public Affectation(Date dateAffectation, String poste, Personne personne, Service service) {
         this.dateAffectation = dateAffectation;
         this.poste = poste;
+        this.personne = personne;
+        this.service = service;
     }
-
+    
+    // ======================================
+    // = Getters & setters =
+    // ======================================
     public Integer getIdAffectation() {
         return idAffectation;
     }
@@ -135,22 +143,51 @@ public class Affectation implements Serializable {
     public void setService(Service service) {
         this.service = service;
     }
-
+    
+     // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idAffectation != null ? idAffectation.hashCode() : 0);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.idAffectation);
+        hash = 67 * hash + Objects.hashCode(this.dateAffectation);
+        hash = 67 * hash + Objects.hashCode(this.poste);
+        hash = 67 * hash + Objects.hashCode(this.dateDetachement);
+        hash = 67 * hash + Objects.hashCode(this.remarques);
+        hash = 67 * hash + Objects.hashCode(this.personne);
+        hash = 67 * hash + Objects.hashCode(this.service);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Affectation)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Affectation other = (Affectation) object;
-        if ((this.idAffectation == null && other.idAffectation != null) || (this.idAffectation != null && !this.idAffectation.equals(other.idAffectation))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Affectation other = (Affectation) obj;
+        if (!Objects.equals(this.idAffectation, other.idAffectation)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateAffectation, other.dateAffectation)) {
+            return false;
+        }
+        if (!Objects.equals(this.poste, other.poste)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateDetachement, other.dateDetachement)) {
+            return false;
+        }
+        if (!Objects.equals(this.remarques, other.remarques)) {
+            return false;
+        }
+        if (!Objects.equals(this.personne, other.personne)) {
+            return false;
+        }
+        if (!Objects.equals(this.service, other.service)) {
             return false;
         }
         return true;
@@ -158,7 +195,9 @@ public class Affectation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Affectation[ idAffectation=" + idAffectation + " ]";
+        return "Affectation{" + "dateAffectation=" + dateAffectation + ", poste=" + poste + '}';
     }
+    
+    
     
 }

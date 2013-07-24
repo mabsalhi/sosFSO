@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Situation.findBySalaireEstimatif", query = "SELECT s FROM Situation s WHERE s.salaireEstimatif = :salaireEstimatif"),
     @NamedQuery(name = "Situation.findByRemarques", query = "SELECT s FROM Situation s WHERE s.remarques = :remarques")})
 public class Situation implements Serializable {
+    // ======================================
+    // = Attributes =
+    // ======================================
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +75,141 @@ public class Situation implements Serializable {
     @ManyToOne(optional = false)
     private Personne personne;
 
+    // ======================================
+    // = Constructors =
+    // ======================================
+    public Situation() {
+    }
+
+    public Situation(int echelon, Date dateEffet) {
+        this.echelon = echelon;
+        this.dateEffet = dateEffet;
+    }
+
+    // ======================================
+    // = Getters & setters =
+    // ======================================
+    public Integer getIdSituation() {
+        return idSituation;
+    }
+
+    public void setIdSituation(Integer idSituation) {
+        this.idSituation = idSituation;
+    }
+
+    public int getEchelon() {
+        return echelon;
+    }
+
+    public void setEchelon(int echelon) {
+        this.echelon = echelon;
+    }
+
+    public int getNumeroIndicatif() {
+        return numeroIndicatif;
+    }
+
+    public void setNumeroIndicatif(int numeroIndicatif) {
+        this.numeroIndicatif = numeroIndicatif;
+    }
+
+    public Date getDateEffet() {
+        return dateEffet;
+    }
+
+    public void setDateEffet(Date dateEffet) {
+        this.dateEffet = dateEffet;
+    }
+
+    public Float getSalaireEstimatif() {
+        return salaireEstimatif;
+    }
+
+    public void setSalaireEstimatif(Float salaireEstimatif) {
+        this.salaireEstimatif = salaireEstimatif;
+    }
+
+    public String getRemarques() {
+        return remarques;
+    }
+
+    public void setRemarques(String remarques) {
+        this.remarques = remarques;
+    }
+
+    public Fonction getFonction() {
+        return fonction;
+    }
+
+    public void setFonction(Fonction fonction) {
+        this.fonction = fonction;
+    }
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
+
+    // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.idSituation);
+        hash = 31 * hash + this.echelon;
+        hash = 31 * hash + this.numeroIndicatif;
+        hash = 31 * hash + Objects.hashCode(this.dateEffet);
+        hash = 31 * hash + Objects.hashCode(this.salaireEstimatif);
+        hash = 31 * hash + Objects.hashCode(this.remarques);
+        hash = 31 * hash + Objects.hashCode(this.fonction);
+        hash = 31 * hash + Objects.hashCode(this.personne);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Situation other = (Situation) obj;
+        if (!Objects.equals(this.idSituation, other.idSituation)) {
+            return false;
+        }
+        if (this.echelon != other.echelon) {
+            return false;
+        }
+        if (this.numeroIndicatif != other.numeroIndicatif) {
+            return false;
+        }
+        if (!Objects.equals(this.dateEffet, other.dateEffet)) {
+            return false;
+        }
+        if (!Objects.equals(this.salaireEstimatif, other.salaireEstimatif)) {
+            return false;
+        }
+        if (!Objects.equals(this.remarques, other.remarques)) {
+            return false;
+        }
+        if (!Objects.equals(this.fonction, other.fonction)) {
+            return false;
+        }
+        if (!Objects.equals(this.personne, other.personne)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Situation{" + "echelon=" + echelon + ", dateEffet=" + dateEffet + '}';
+    }
     
     
 }

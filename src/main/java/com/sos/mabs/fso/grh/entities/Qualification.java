@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Qualification.findByPartieDelivrante", query = "SELECT q FROM Qualification q WHERE q.partieDelivrante = :partieDelivrante"),
     @NamedQuery(name = "Qualification.findByRemarques", query = "SELECT q FROM Qualification q WHERE q.remarques = :remarques")})
 public class Qualification implements Serializable {
+     
+    // ======================================
+    // = Attributes =
+    // ======================================
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,13 +66,21 @@ public class Qualification implements Serializable {
     @ManyToOne(optional = false)
     private Diplome diplome;
 
+    // ======================================
+    // = Constructors =
+    // ======================================
     public Qualification() {
     }
 
-    public Qualification(Integer idQualification) {
-        this.idQualification = idQualification;
+    public Qualification(Date dateObtention, String mension, String partieDelivrante) {
+        this.dateObtention = dateObtention;
+        this.mension = mension;
+        this.partieDelivrante = partieDelivrante;
     }
 
+    // ======================================
+    // = Getters & setters =
+    // ======================================
     public Integer getIdQualification() {
         return idQualification;
     }
@@ -124,21 +137,50 @@ public class Qualification implements Serializable {
         this.diplome = diplome;
     }
 
+    // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idQualification != null ? idQualification.hashCode() : 0);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.idQualification);
+        hash = 11 * hash + Objects.hashCode(this.dateObtention);
+        hash = 11 * hash + Objects.hashCode(this.mension);
+        hash = 11 * hash + Objects.hashCode(this.partieDelivrante);
+        hash = 11 * hash + Objects.hashCode(this.remarques);
+        hash = 11 * hash + Objects.hashCode(this.personne);
+        hash = 11 * hash + Objects.hashCode(this.diplome);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Qualification)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Qualification other = (Qualification) object;
-        if ((this.idQualification == null && other.idQualification != null) || (this.idQualification != null && !this.idQualification.equals(other.idQualification))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Qualification other = (Qualification) obj;
+        if (!Objects.equals(this.idQualification, other.idQualification)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateObtention, other.dateObtention)) {
+            return false;
+        }
+        if (!Objects.equals(this.mension, other.mension)) {
+            return false;
+        }
+        if (!Objects.equals(this.partieDelivrante, other.partieDelivrante)) {
+            return false;
+        }
+        if (!Objects.equals(this.remarques, other.remarques)) {
+            return false;
+        }
+        if (!Objects.equals(this.personne, other.personne)) {
+            return false;
+        }
+        if (!Objects.equals(this.diplome, other.diplome)) {
             return false;
         }
         return true;
@@ -146,7 +188,8 @@ public class Qualification implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Qualification[ idQualification=" + idQualification + " ]";
+        return "Qualification{" + "mension=" + mension + ", partieDelivrante=" + partieDelivrante + '}';
     }
+    
     
 }
