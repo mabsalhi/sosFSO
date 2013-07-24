@@ -22,79 +22,72 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author mab.salhi
  */
 @Entity
-@Table(name = "t_diplome")
+@Table(name = "t_fonction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Diplome.findAll", query = "SELECT d FROM Diplome d"),
-    @NamedQuery(name = "Diplome.findByIdDiplome", query = "SELECT d FROM Diplome d WHERE d.idDiplome = :idDiplome"),
-    @NamedQuery(name = "Diplome.findByIntitule", query = "SELECT d FROM Diplome d WHERE d.intitule = :intitule"),
-    @NamedQuery(name = "Diplome.findByType", query = "SELECT d FROM Diplome d WHERE d.type = :type"),
-    @NamedQuery(name = "Diplome.findByDescription", query = "SELECT d FROM Diplome d WHERE d.description = :description")})
-public class Diplome implements Serializable {
-    
+    @NamedQuery(name = "Fonction.findAll", query = "SELECT c FROM Fonction c"),
+    @NamedQuery(name = "Fonction.findByIdFonction", query = "SELECT c FROM Fonction c WHERE c.idFonction = :idFonction"),
+    @NamedQuery(name = "Fonction.findByIntitule", query = "SELECT c FROM Fonction c WHERE c.intitule = :intitule"),
+    @NamedQuery(name = "Fonction.findByEchelle", query = "SELECT c FROM Fonction c WHERE c.echelle = :echelle"),
+    @NamedQuery(name = "Fonction.findByDescription", query = "SELECT c FROM Fonction c WHERE c.description = :description")})
+
+public class Fonction implements Serializable{
     // ======================================
     // = Attributes =
     // ======================================
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_diplome")
-    private Integer idDiplome;
-     @Version
+    @Column(name = "id_fonction")
+    private Integer idFonction;
+    @Version
     @Column(name = "optimistic_Lock_version")
     private int version;
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 250)
+    @Size(max = 255)
     @Column(name = "intitule")
     private String intitule;
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 250)
+    @Size(max = 255)
     @Column(name = "intitule_ar")
     private String intituleAr;
-    @Size(max = 45)
-    @Column(name = "type")
-    private String type;
-    @Size(max = 45)
-    @Column(name = "type_ar")
-    private String typeAr;
+    @Column(name = "echelle")
+    private Integer echelle;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diplome")
-    private List<Qualification> qualifications;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cadre")
+    private List<Situation> situations;
 
     // ======================================
     // = Constructors =
     // ======================================
-    public Diplome() {
+    public Fonction() {
     }
 
-    public Diplome(String intitule, String type, String description) {
+    public Fonction(String intitule, Integer echelle, String description) {
         this.intitule = intitule;
-        this.type = type;
+        this.echelle = echelle;
         this.description = description;
     }
-    
     
     // ======================================
     // = Getters & setters =
     // ======================================
-    public Integer getIdDiplome() {
-        return idDiplome;
+    public Integer getIdFonction() {
+        return idFonction;
     }
 
-    public void setIdDiplome(Integer idDiplome) {
-        this.idDiplome = idDiplome;
+    public void setIdFonction(Integer idFonction) {
+        this.idFonction = idFonction;
     }
 
     public int getVersion() {
@@ -121,20 +114,12 @@ public class Diplome implements Serializable {
         this.intituleAr = intituleAr;
     }
 
-    public String getType() {
-        return type;
+    public Integer getEchelle() {
+        return echelle;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTypeAr() {
-        return typeAr;
-    }
-
-    public void setTypeAr(String typeAr) {
-        this.typeAr = typeAr;
+    public void setEchelle(Integer echelle) {
+        this.echelle = echelle;
     }
 
     public String getDescription() {
@@ -145,12 +130,12 @@ public class Diplome implements Serializable {
         this.description = description;
     }
 
-    public List<Qualification> getQualifications() {
-        return qualifications;
+    public List<Situation> getSituations() {
+        return situations;
     }
 
-    public void setQualifications(List<Qualification> qualifications) {
-        this.qualifications = qualifications;
+    public void setSituations(List<Situation> situations) {
+        this.situations = situations;
     }
 
     // ======================================
@@ -158,15 +143,14 @@ public class Diplome implements Serializable {
     // ======================================
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.idDiplome);
-        hash = 29 * hash + this.version;
-        hash = 29 * hash + Objects.hashCode(this.intitule);
-        hash = 29 * hash + Objects.hashCode(this.intituleAr);
-        hash = 29 * hash + Objects.hashCode(this.type);
-        hash = 29 * hash + Objects.hashCode(this.typeAr);
-        hash = 29 * hash + Objects.hashCode(this.description);
-        hash = 29 * hash + Objects.hashCode(this.qualifications);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.idFonction);
+        hash = 37 * hash + this.version;
+        hash = 37 * hash + Objects.hashCode(this.intitule);
+        hash = 37 * hash + Objects.hashCode(this.intituleAr);
+        hash = 37 * hash + Objects.hashCode(this.echelle);
+        hash = 37 * hash + Objects.hashCode(this.description);
+        hash = 37 * hash + Objects.hashCode(this.situations);
         return hash;
     }
 
@@ -178,8 +162,8 @@ public class Diplome implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Diplome other = (Diplome) obj;
-        if (!Objects.equals(this.idDiplome, other.idDiplome)) {
+        final Fonction other = (Fonction) obj;
+        if (!Objects.equals(this.idFonction, other.idFonction)) {
             return false;
         }
         if (this.version != other.version) {
@@ -191,16 +175,13 @@ public class Diplome implements Serializable {
         if (!Objects.equals(this.intituleAr, other.intituleAr)) {
             return false;
         }
-        if (!Objects.equals(this.type, other.type)) {
-            return false;
-        }
-        if (!Objects.equals(this.typeAr, other.typeAr)) {
+        if (!Objects.equals(this.echelle, other.echelle)) {
             return false;
         }
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.qualifications, other.qualifications)) {
+        if (!Objects.equals(this.situations, other.situations)) {
             return false;
         }
         return true;
@@ -208,7 +189,7 @@ public class Diplome implements Serializable {
 
     @Override
     public String toString() {
-        return "Diplome{" + "intitule=" + intitule + ", type=" + type + '}';
+        return "Fonction{" + "intitule=" + intitule + ", echelle=" + echelle + '}';
     }
     
     

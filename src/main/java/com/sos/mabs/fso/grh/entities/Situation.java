@@ -64,114 +64,13 @@ public class Situation implements Serializable {
     @Size(max = 255)
     @Column(name = "remarques")
     private String remarques;
-    @JoinColumn(name = "id_cadre", referencedColumnName = "id_cadre")
+    @JoinColumn(name = "id_fonction", referencedColumnName = "id_fonction")
     @ManyToOne(optional = false)
-    private Cadre cadre;
+    private Fonction fonction;
     @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
     @ManyToOne(optional = false)
     private Personne personne;
 
-    public Situation() {
-    }
-
-    public Situation(Integer idSituation) {
-        this.idSituation = idSituation;
-    }
-
-    public Situation(Integer idSituation, int echelon, int numeroIndicatif, Date dateEffet) {
-        this.idSituation = idSituation;
-        this.echelon = echelon;
-        this.numeroIndicatif = numeroIndicatif;
-        this.dateEffet = dateEffet;
-    }
-
-    public Integer getIdSituation() {
-        return idSituation;
-    }
-
-    public void setIdSituation(Integer idSituation) {
-        this.idSituation = idSituation;
-    }
-
-    public int getEchelon() {
-        return echelon;
-    }
-
-    public void setEchelon(int echelon) {
-        this.echelon = echelon;
-    }
-
-    public int getNumeroIndicatif() {
-        return numeroIndicatif;
-    }
-
-    public void setNumeroIndicatif(int numeroIndicatif) {
-        this.numeroIndicatif = numeroIndicatif;
-    }
-
-    public Date getDateEffet() {
-        return dateEffet;
-    }
-
-    public void setDateEffet(Date dateEffet) {
-        this.dateEffet = dateEffet;
-    }
-
-    public Float getSalaireEstimatif() {
-        return salaireEstimatif;
-    }
-
-    public void setSalaireEstimatif(Float salaireEstimatif) {
-        this.salaireEstimatif = salaireEstimatif;
-    }
-
-    public String getRemarques() {
-        return remarques;
-    }
-
-    public void setRemarques(String remarques) {
-        this.remarques = remarques;
-    }
-
-    public Cadre getCadre() {
-        return cadre;
-    }
-
-    public void setCadre(Cadre cadre) {
-        this.cadre = cadre;
-    }
-
-    public Personne getPersonne() {
-        return personne;
-    }
-
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idSituation != null ? idSituation.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Situation)) {
-            return false;
-        }
-        Situation other = (Situation) object;
-        if ((this.idSituation == null && other.idSituation != null) || (this.idSituation != null && !this.idSituation.equals(other.idSituation))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Situation[ idSituation=" + idSituation + " ]";
-    }
+    
     
 }

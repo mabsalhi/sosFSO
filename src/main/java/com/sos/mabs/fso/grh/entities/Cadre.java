@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,9 +18,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -32,39 +35,67 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cadre.findAll", query = "SELECT c FROM Cadre c"),
     @NamedQuery(name = "Cadre.findByIdCadre", query = "SELECT c FROM Cadre c WHERE c.idCadre = :idCadre"),
     @NamedQuery(name = "Cadre.findByIntitule", query = "SELECT c FROM Cadre c WHERE c.intitule = :intitule"),
-    @NamedQuery(name = "Cadre.findByEchelle", query = "SELECT c FROM Cadre c WHERE c.echelle = :echelle"),
     @NamedQuery(name = "Cadre.findByDescription", query = "SELECT c FROM Cadre c WHERE c.description = :description")})
 public class Cadre implements Serializable {
+    
+    // ======================================
+    // = Attributes =
+    // ======================================
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_cadre")
     private Integer idCadre;
+    @Version
+    @Column(name = "optimistic_Lock_version")
+    private int version;
+    @NotNull
     @Size(max = 255)
     @Column(name = "intitule")
     private String intitule;
-    @Column(name = "echelle")
-    private Integer echelle;
+    @NotNull
+    @Size(max = 255)
+    @Column(name = "intitule_ar")
+    private String intituleAr;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cadre")
-    private List<Situation> situations;
-
+    private List<Fonction> fonctions;
+    
+     // ======================================
+    // = Constructors =
+    // ======================================
     public Cadre() {
     }
 
-    public Cadre(Integer idCadre) {
-        this.idCadre = idCadre;
+    public Cadre(String intitule, String description, List<Fonction> fonctions) {
+        this.intitule = intitule;
+        this.description = description;
+        this.fonctions = fonctions;
     }
-
+    
+    
+    
+    // ======================================
+    // = Getters & setters =
+    // ======================================
     public Integer getIdCadre() {
         return idCadre;
     }
 
     public void setIdCadre(Integer idCadre) {
         this.idCadre = idCadre;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public String getIntitule() {
@@ -75,12 +106,12 @@ public class Cadre implements Serializable {
         this.intitule = intitule;
     }
 
-    public Integer getEchelle() {
-        return echelle;
+    public String getIntituleAr() {
+        return intituleAr;
     }
 
-    public void setEchelle(Integer echelle) {
-        this.echelle = echelle;
+    public void setIntituleAr(String intituleAr) {
+        this.intituleAr = intituleAr;
     }
 
     public String getDescription() {
@@ -91,30 +122,56 @@ public class Cadre implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
-    public List<Situation> getSituations() {
-        return situations;
+    public List<Fonction> getFonctions() {
+        return fonctions;
     }
 
-    public void setSituations(List<Situation> situations) {
-        this.situations = situations;
+    public void setFonctions(List<Fonction> fonctions) {
+        this.fonctions = fonctions;
     }
-
+    
+    
+    
+    // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idCadre != null ? idCadre.hashCode() : 0);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.idCadre);
+        hash = 89 * hash + this.version;
+        hash = 89 * hash + Objects.hashCode(this.intitule);
+        hash = 89 * hash + Objects.hashCode(this.intituleAr);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.fonctions);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cadre)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Cadre other = (Cadre) object;
-        if ((this.idCadre == null && other.idCadre != null) || (this.idCadre != null && !this.idCadre.equals(other.idCadre))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cadre other = (Cadre) obj;
+        if (!Objects.equals(this.idCadre, other.idCadre)) {
+            return false;
+        }
+        if (this.version != other.version) {
+            return false;
+        }
+        if (!Objects.equals(this.intitule, other.intitule)) {
+            return false;
+        }
+        if (!Objects.equals(this.intituleAr, other.intituleAr)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.fonctions, other.fonctions)) {
             return false;
         }
         return true;
@@ -122,7 +179,11 @@ public class Cadre implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Cadre[ idCadre=" + idCadre + " ]";
+        return "Cadre{" + "intitule=" + intitule + '}';
     }
+
+    
+    
+   
     
 }

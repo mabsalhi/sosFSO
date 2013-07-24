@@ -5,8 +5,10 @@
 package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -50,27 +53,43 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Personne.findBySom", query = "SELECT p FROM Personne p WHERE p.som = :som"),
     @NamedQuery(name = "Personne.findByPosteBudgetaire", query = "SELECT p FROM Personne p WHERE p.posteBudgetaire = :posteBudgetaire")})
 public class Personne implements Serializable {
+    
+    // ======================================
+    // = Attributes =
+    // ======================================
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_personne")
     private Integer idPersonne;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
     @Column(name = "nom")
     private String nom;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
     @Column(name = "prenom")
     private String prenom;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
     @Column(name = "nom_ar")
     private String nomAr;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
     @Column(name = "prenom_ar")
     private String prenomAr;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
     @Column(name = "cin")
     private String cin;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "date_naissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
@@ -91,11 +110,17 @@ public class Personne implements Serializable {
     @Lob
     @Column(name = "photo")
     private byte[] photo;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "date_recrutement")
     @Temporal(TemporalType.DATE)
     private Date dateRecrutement;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "som")
     private Integer som;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "poste_budgetaire")
     private Integer posteBudgetaire;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
@@ -105,13 +130,27 @@ public class Personne implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
     private List<Situation> situations;
 
+    // ======================================
+    // = Constructors =
+    // ======================================
     public Personne() {
     }
 
-    public Personne(Integer idPersonne) {
-        this.idPersonne = idPersonne;
+    public Personne(String nom, String prenom, String nomAr, String prenomAr, String cin, Date dateNaissance, Date dateRecrutement, Integer som, Integer posteBudgetaire) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.nomAr = nomAr;
+        this.prenomAr = prenomAr;
+        this.cin = cin;
+        this.dateNaissance = dateNaissance;
+        this.dateRecrutement = dateRecrutement;
+        this.som = som;
+        this.posteBudgetaire = posteBudgetaire;
     }
-
+    
+    // ======================================
+    // = Getters & setters =
+    // ======================================
     public Integer getIdPersonne() {
         return idPersonne;
     }
@@ -240,7 +279,6 @@ public class Personne implements Serializable {
         this.posteBudgetaire = posteBudgetaire;
     }
 
-    @XmlTransient
     public List<Qualification> getQualifications() {
         return qualifications;
     }
@@ -249,7 +287,6 @@ public class Personne implements Serializable {
         this.qualifications = qualifications;
     }
 
-    @XmlTransient
     public List<Affectation> getAffectations() {
         return affectations;
     }
@@ -258,7 +295,6 @@ public class Personne implements Serializable {
         this.affectations = affectations;
     }
 
-    @XmlTransient
     public List<Situation> getSituations() {
         return situations;
     }
@@ -266,22 +302,99 @@ public class Personne implements Serializable {
     public void setSituations(List<Situation> situations) {
         this.situations = situations;
     }
-
+    
+    // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idPersonne != null ? idPersonne.hashCode() : 0);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.idPersonne);
+        hash = 97 * hash + Objects.hashCode(this.nom);
+        hash = 97 * hash + Objects.hashCode(this.prenom);
+        hash = 97 * hash + Objects.hashCode(this.nomAr);
+        hash = 97 * hash + Objects.hashCode(this.prenomAr);
+        hash = 97 * hash + Objects.hashCode(this.cin);
+        hash = 97 * hash + Objects.hashCode(this.dateNaissance);
+        hash = 97 * hash + Objects.hashCode(this.lieuNaissance);
+        hash = 97 * hash + Objects.hashCode(this.etatMatrimonial);
+        hash = 97 * hash + Objects.hashCode(this.nbEnfants);
+        hash = 97 * hash + Objects.hashCode(this.adresse);
+        hash = 97 * hash + Objects.hashCode(this.telephonne);
+        hash = 97 * hash + Arrays.hashCode(this.photo);
+        hash = 97 * hash + Objects.hashCode(this.dateRecrutement);
+        hash = 97 * hash + Objects.hashCode(this.som);
+        hash = 97 * hash + Objects.hashCode(this.posteBudgetaire);
+        hash = 97 * hash + Objects.hashCode(this.qualifications);
+        hash = 97 * hash + Objects.hashCode(this.affectations);
+        hash = 97 * hash + Objects.hashCode(this.situations);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Personne)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Personne other = (Personne) object;
-        if ((this.idPersonne == null && other.idPersonne != null) || (this.idPersonne != null && !this.idPersonne.equals(other.idPersonne))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Personne other = (Personne) obj;
+        if (!Objects.equals(this.idPersonne, other.idPersonne)) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.prenom, other.prenom)) {
+            return false;
+        }
+        if (!Objects.equals(this.nomAr, other.nomAr)) {
+            return false;
+        }
+        if (!Objects.equals(this.prenomAr, other.prenomAr)) {
+            return false;
+        }
+        if (!Objects.equals(this.cin, other.cin)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateNaissance, other.dateNaissance)) {
+            return false;
+        }
+        if (!Objects.equals(this.lieuNaissance, other.lieuNaissance)) {
+            return false;
+        }
+        if (!Objects.equals(this.etatMatrimonial, other.etatMatrimonial)) {
+            return false;
+        }
+        if (!Objects.equals(this.nbEnfants, other.nbEnfants)) {
+            return false;
+        }
+        if (!Objects.equals(this.adresse, other.adresse)) {
+            return false;
+        }
+        if (!Objects.equals(this.telephonne, other.telephonne)) {
+            return false;
+        }
+        if (!Arrays.equals(this.photo, other.photo)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateRecrutement, other.dateRecrutement)) {
+            return false;
+        }
+        if (!Objects.equals(this.som, other.som)) {
+            return false;
+        }
+        if (!Objects.equals(this.posteBudgetaire, other.posteBudgetaire)) {
+            return false;
+        }
+        if (!Objects.equals(this.qualifications, other.qualifications)) {
+            return false;
+        }
+        if (!Objects.equals(this.affectations, other.affectations)) {
+            return false;
+        }
+        if (!Objects.equals(this.situations, other.situations)) {
             return false;
         }
         return true;
@@ -289,7 +402,8 @@ public class Personne implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Personne[ idPersonne=" + idPersonne + " ]";
+        return "Personne{" + "nom=" + nom + ", prenom=" + prenom + ", cin=" + cin + ", som=" + som + '}';
     }
+    
     
 }

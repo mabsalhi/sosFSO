@@ -6,6 +6,7 @@ package com.sos.mabs.fso.grh.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,41 +37,61 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Service.findByIntitule", query = "SELECT s FROM Service s WHERE s.intitule = :intitule"),
     @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description")})
 public class Service implements Serializable {
+    
+     // ======================================
+    // = Attributes =
+    // ======================================
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_service")
     private Integer idService;
+    @Version
+    @Column(name = "optimistic_Lock_version")
+    private int version;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
     @Column(name = "intitule")
     private String intitule;
+    @Size(min = 1, max = 150)
+    @Column(name = "intitule_ar")
+    private String intituleAr;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
     private List<Affectation> affectations;
 
+    // ======================================
+    // = Constructors =
+    // ======================================
     public Service() {
     }
 
-    public Service(Integer idService) {
-        this.idService = idService;
-    }
-
-    public Service(Integer idService, String intitule) {
-        this.idService = idService;
+    public Service(String intitule, String description) {
         this.intitule = intitule;
+        this.description = description;
     }
-
+    
+    // ======================================
+    // = Getters & setters =
+    // ======================================
     public Integer getIdService() {
         return idService;
     }
 
     public void setIdService(Integer idService) {
         this.idService = idService;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public String getIntitule() {
@@ -80,6 +102,14 @@ public class Service implements Serializable {
         this.intitule = intitule;
     }
 
+    public String getIntituleAr() {
+        return intituleAr;
+    }
+
+    public void setIntituleAr(String intituleAr) {
+        this.intituleAr = intituleAr;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -88,7 +118,6 @@ public class Service implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
     public List<Affectation> getAffectations() {
         return affectations;
     }
@@ -97,21 +126,46 @@ public class Service implements Serializable {
         this.affectations = affectations;
     }
 
+    // ======================================
+    // = Methods hash, equals, toString =
+    // ======================================
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idService != null ? idService.hashCode() : 0);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.idService);
+        hash = 41 * hash + this.version;
+        hash = 41 * hash + Objects.hashCode(this.intitule);
+        hash = 41 * hash + Objects.hashCode(this.intituleAr);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        hash = 41 * hash + Objects.hashCode(this.affectations);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Service)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Service other = (Service) object;
-        if ((this.idService == null && other.idService != null) || (this.idService != null && !this.idService.equals(other.idService))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Service other = (Service) obj;
+        if (!Objects.equals(this.idService, other.idService)) {
+            return false;
+        }
+        if (this.version != other.version) {
+            return false;
+        }
+        if (!Objects.equals(this.intitule, other.intitule)) {
+            return false;
+        }
+        if (!Objects.equals(this.intituleAr, other.intituleAr)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.affectations, other.affectations)) {
             return false;
         }
         return true;
@@ -119,7 +173,9 @@ public class Service implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sos.mabs.fso.grh.entities.Service[ idService=" + idService + " ]";
+        return "Service{" + "intitule=" + intitule + '}';
     }
+    
+    
     
 }
