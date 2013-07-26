@@ -11,8 +11,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
@@ -54,7 +56,7 @@ public class CadreController implements Serializable {
     
      public String showDetails(Cadre item){
         this.current = item;
-        return "detail?faces-redirect=true";
+        return "edit?faces-redirect=true";
     }
     
     public String doCreate(){
@@ -70,6 +72,30 @@ public class CadreController implements Serializable {
 
     public Cadre getCadre(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+    
+    public String doUpdate(){
+        try {
+            current = ejbFacade.edit(current);
+            
+        addMessage("update", FacesMessage.SEVERITY_INFO, "La mise a jour de l'enregistrement : " + this.current.getIntitule()+ " a ete effectuer", "Succes !!");
+        return "list?faces-redirect=true";
+            
+        } catch (Exception e) {
+            
+            addMessage("error", FacesMessage.SEVERITY_FATAL, "Une autre personne a modifier l'enregistrement : " + this.current.getIntitule()+ ", veuillez revenir sur la liste, revoir les donnees et reassayer ", "Fail !!");
+            
+        return "edit?faces-redirect=true";
+        }
+    
+    }
+    
+    private void addMessage(String key, FacesMessage.Severity severity, String message, String detail) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Flash flash = context.getExternalContext().getFlash();
+        flash.setKeepMessages(true);
+        FacesMessage msg = new FacesMessage(severity, message, detail);
+        FacesContext.getCurrentInstance().addMessage(key, msg);
     }
     // ======================================
     // = Getters & setters =
