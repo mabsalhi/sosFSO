@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Creation de diplomes</h1>
+</h:head>
+    <h:body>
+        <div>Creer un nouveau Diplomes</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Intitule du diplome"/>
+                <p:inputText id="intitule" value="#{diplomeController.nouveau.intitule}"
+                             required="true" requiredMessage="Veuillez saisir un intitule"/>
+                <p:message for="intitule"/>
+                
+                <p:outputLabel value="Intitule en Arabe"/>
+                <p:inputText id="intituleAr" value="#{diplomeController.nouveau.intituleAr}"
+                             required="true" requiredMessage="Veuillez saisir un intitule valide"/>
+                <p:message for="intituleAr"/>
+                
+                <p:outputLabel value="Description du diplome"/>
+                <p:inputTextarea id="description" value="#{diplomeController.nouveau.description}"
+                             />
+                
+            </p:panelGrid>
+            <h:commandButton value="Ajouter" action="#{diplomeController.doCreate}"/>
+        </h:form>
+    </h:body>
+</html>

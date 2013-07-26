@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Liste des services</h1>
+</h:head>
+    <h:body>
+        <div>Liste des Services</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:dataTable value="#{serviceController.all}" var="item"
+                         paginator="true" rows="5" sortMode="multiple" selectionMode="single"
+                         selection="#{serviceController.current}" rowKey="#{item.idService}">
+                <p:column filterBy="#{item.intitule}">
+                    <f:facet name="header">
+                        <h:outputText value="Intitule"/>
+                    </f:facet>
+                    <h:commandLink value="#{item.intitule}" action="#{cadreController.showDetails(item)}"/>
+                </p:column>
+                <p:column sortBy="#{item.intituleAr}">
+                    <f:facet name="header">
+                        <h:outputText value="Intitule en arabe"/>
+                    </f:facet>
+                    <h:outputText value="#{item.intituleAr}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Description"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+        
+    </h:body>
+</html>

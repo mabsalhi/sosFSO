@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>edition de la fonction</h1>
+</h:head>
+    <h:body>
+        <div>Mise a jour de la Fonction</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Intitule du service"/>
+                <p:inputText id="intitule" value="#{fonctionController.current.intitule}"
+                             required="true" requiredMessage="Veuillez saisir un intitule"/>
+                <p:message for="intitule"/>
+                
+                <p:outputLabel value="Intitule en Arabe"/>
+                <p:inputText id="intituleAr" value="#{fonctionController.current.intituleAr}"
+                             required="true" requiredMessage="Veuillez saisir un intitule valide"/>
+                <p:message for="intituleAr"/>
+                
+                <p:inputText id="echelle" value="#{fonctionController.current.echelle}"
+                             required="true" requiredMessage="Veuillez saisir une echelle, un numero entier"/>
+                <p:message for="echelle"/>
+                
+                <p:outputLabel value="Cadre"/>
+                <p:selectOneMenu value="#{fonctionController.current.cadre}">
+                    <f:selectItems value="#{cadreController.all}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value=""/>
+                
+                <p:outputLabel value="Description du service"/>
+                <p:inputTextarea id="description" value="#{fonctionController.current.description}"
+                             />
+                
+            </p:panelGrid>
+            <h:commandButton value="Ajouter" action="#{fonctionController.doUpdate}"/>
+        </h:form>
+    </h:body>
+</html>
