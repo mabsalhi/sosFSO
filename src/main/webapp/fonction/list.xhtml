@@ -9,6 +9,7 @@
 </h:head>
     <h:body>
         <div>Liste des Fonctions</div>
+        <p:commandLink value="Nouvelle Fonction" action="#{fonctionController.showCreate}"/>
         <p:messages for="update"/>
         <h:form>
             <p:dataTable value="#{fonctionController.all}" var="item"

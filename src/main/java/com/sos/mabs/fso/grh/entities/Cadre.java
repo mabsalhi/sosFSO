@@ -179,7 +179,7 @@ public class Cadre implements Serializable {
 
     @Override
     public String toString() {
-        return "Cadre{" + "intitule=" + intitule + '}';
+        return intitule;
     }
 
     

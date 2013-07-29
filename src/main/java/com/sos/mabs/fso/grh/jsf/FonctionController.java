@@ -31,7 +31,7 @@ public class FonctionController implements Serializable {
     
     private Fonction current = null;
     private List<Fonction> fonctions = null;
-    private Fonction nouveau = new Fonction();
+    private Fonction nouveau;
     
     
     
@@ -51,6 +51,11 @@ public class FonctionController implements Serializable {
      public String showDetails(Fonction item){
         this.current = item;
         return "edit?faces-redirect=true";
+    }
+     
+     public String showCreate(){
+        this.nouveau = new Fonction();
+        return "create?faces-redirect=true";
     }
     
     public String doCreate(){
