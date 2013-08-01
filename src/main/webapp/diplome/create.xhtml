@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -5,9 +10,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <h1>Creation de diplomes</h1>
+        <h1>Liste des cadres</h1>
 </h:head>
     <h:body>
+    <ui:composition template="../grhFSO.xhtml">
+        <ui:define name="content">	
         <div>Creer un nouveau Diplomes</div>
         <p:messages for="update"/>
         <h:form>
@@ -28,6 +35,7 @@
                 
             </p:panelGrid>
             <h:commandButton value="Ajouter" action="#{diplomeController.doCreate}"/>
-        </h:form>
+        </h:form></ui:define>
+    </ui:composition>
     </h:body>
 </html>

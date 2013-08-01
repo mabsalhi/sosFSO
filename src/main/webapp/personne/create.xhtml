@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Liste des cadres</h1>
+</h:head>
+    <h:body>
+    <ui:composition template="../grhFSO.xhtml">
+        <ui:define name="content">	
+        <div>Creer un nouveau Diplomes</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:panelGrid columns="4" styleClass="col-lg-12">
+                <p:outputLabel value="Numéro de S.O.M :"/>
+                <p:inputText id="som" value="#{personneController.nouveau.som}"
+                             required="true" requiredMessage="Veuillez saisir un Entier" converter="javax.faces.Integer">
+                    
+                </p:inputText>
+                <p:message for="som"/>
+                <p:outputLabel value="رقـم الـتأجـيـر :" style="direction: rtl;  float: right;"/>
+                
+                <p:outputLabel value="C.I.N :"/>
+                <p:inputText id="cin" value="#{personneController.nouveau.cin}"
+                             required="true" requiredMessage="Veuillez saisir un Numero de cin">
+                    
+                </p:inputText>
+                <p:message for="cin"/>
+                <p:outputLabel value="رقـم بطـاقةالتعريف الوطنية :" style="direction: rtl; float: right;"/>
+                
+                
+                <p:outputLabel value="Numéro du poste budgétaire :"/>
+                <p:inputText id="posteBudgetaire" value="#{personneController.nouveau.posteBudgetaire}"
+                             required="true" requiredMessage="Veuillez saisir un Entier" converter="javax.faces.Integer">
+                    
+                </p:inputText>
+                <p:message for="posteBudgetaire"/>
+                <p:outputLabel value="المنصب المالى:" style="direction: rtl;  float: right;"/>
+                </p:panelGrid>
+                <p:panelGrid columns="3" styleClass="col-lg-6">
+                <p:outputLabel value="Nom"/>
+                <p:inputText id="nom" value="#{personneController.nouveau.nom}"
+                             required="true" requiredMessage="Veuillez saisir un Nom valide"/>
+                <p:message for="nom"/>
+                <p:outputLabel value="Prénom"/>
+                <p:inputText id="prenom" value="#{personneController.nouveau.prenom}"
+                             required="true" requiredMessage="Veuillez saisir un prénom valide"/>
+                <p:message for="prenom"/>
+                
+                </p:panelGrid>
+            <p:panelGrid columns="3" styleClass="col-lg-6" style="direction: rtl;">
+                <p:outputLabel value="الإسم العـائلـي :"/>
+                <p:inputText id="nomAr" value="#{personneController.nouveau.nomAr}"
+                             required="true" requiredMessage="الرجاء كتابة الإسم باللغـة العربية"/>
+                <p:message for="nomAr"/>
+                
+                <p:outputLabel value="الإسـم الشـخصـي :"/>
+                <p:inputText id="prenomAr" value="#{personneController.nouveau.prenomAr}"
+                             required="true" requiredMessage="الرجاء كتابة الإسم باللغـة العربية"/>
+                <p:message for="prenomAr"/>
+                
+                
+            </p:panelGrid>
+            <div class="row">
+                <h2>Infos personnelle</h2>
+            </div>
+            <p:panelGrid columns="4" styleClass="col-lg-12">
+                <p:outputLabel value="Date de Naissance :"/>
+                
+                <p:calendar id="dateNaissance" value="#{personneController.nouveau.dateNaissance}"
+                                mode="popup" pattern="dd/MM/yyyy" 
+                                required="true" requiredMessage="Veuillez selectionnez une Date de naissance" />
+                
+                <p:message for="dateNaissance"/>
+                <p:outputLabel value="تاريخ الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Lieu de Naissance :"/>
+                
+                <p:inputText id="lieuNaissance" value="#{personneController.nouveau.lieuNaissance}"
+                                />
+                
+                <p:message for="lieuNaissance"/>
+                <p:outputLabel value="محـل الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Etat matrimonial :"/>
+                <h:selectOneMenu id="etatMatrimonial" 
+                                 value="#{personneController.nouveau.etatMatrimonial}" >
+                        <f:selectItem itemLabel="Celibataire -- عازب  (ة" itemValue="Celibataire"/>
+                        <f:selectItem itemLabel="Marie -- ة متزوج" itemValue="Marie (e)"/>
+                        <f:selectItem itemLabel="Divorcee -- مطلق (ة" itemValue="Divorce (e)"/>
+                        <f:selectItem itemLabel="Voeuf -- (ة) أرمل" itemValue="Voeuf (ve)"/>
+                </h:selectOneMenu>
+                <p:message for="etatMatrimonial"/>
+                <p:outputLabel value="الحالة الإجتماعية :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Nombre d'enfants :"/>
+                <p:inputText id="nbEnfants" value="#{personneController.nouveau.nbEnfants}"
+                                />
+                
+                <p:message for="nbEnfants"/>
+                <p:outputLabel value="عدد الأطـفال :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Adresse :"/>
+                <p:inputTextarea id="adresse" value="#{personneController.nouveau.adresse}"
+                                />
+                
+                <p:message for="adresse"/>
+                <p:outputLabel value="العـنوان:" style="direction: rtl; float: right;"/>
+               
+                <p:outputLabel value="Numéro de télephonne :"/>
+                <p:inputText id="numTelephonne" value="#{personneController.nouveau.telephonne}"
+                                />
+                
+                <p:message for="numTelephonne"/>
+                <p:outputLabel value="رقـم الهاتـف:" style="direction: rtl; float: right;"/>
+                
+                
+                
+                              
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Date de Recrutement :"/>
+                
+                <p:calendar id="dateRecrutement" value="#{personneController.nouveau.dateRecrutement}"
+                                mode="popup" pattern="dd/MM/yyyy" 
+                                required="true" requiredMessage="Veuillez selectionnez une Date de naissance" />
+                
+                <p:message for="dateRecrutement"/>
+                <p:outputLabel value="تاريخ الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+            </p:panelGrid>
+            
+                 
+            
+            <h:commandButton value="Ajouter" action="#{personneController.doCreate}"/>
+        </h:form></ui:define>
+    </ui:composition>
+    </h:body>
+</html>

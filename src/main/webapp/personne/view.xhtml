@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h1>Liste des cadres</h1>
+</h:head>
+    <h:body>
+    <ui:composition template="../grhFSO.xhtml">
+        <ui:define name="content">	
+	
+        <div>Liste des Cadres</div>
+        <p:messages for="update"/>
+        <h:form>
+            <p:panelGrid columns="2" styleClass="col-lg-4  col-offset-2">
+                <p:outputLabel value="S.O.M :"/>
+                <p:outputLabel value="#{personneController.current.som}"/>
+                
+                <p:outputLabel value="C.I.N :"/>
+                <p:outputLabel value="#{personneController.current.cin}"/>
+                
+                <p:outputLabel value="Poste Budgetaire :"/>
+                <p:outputLabel value="#{personneController.current.posteBudgetaire}"/>
+            </p:panelGrid>
+            <p:panelGrid styleClass="col-lg-4 col-offset-4">oeofozefzjojfzpofjpoezjfpoejpfzojepofjzpofjzpojfzpojfpzojf</p:panelGrid>>
+            <p:panelGrid columns="2" styleClass="col-lg-5">
+                <p:outputLabel value="Nom :"/>
+                <p:outputLabel value="#{personneController.current.nom}"/>
+                
+                <p:outputLabel value="Prénom :"/>
+                <p:outputLabel value="#{personneController.current.prenom}"/>
+            </p:panelGrid>
+            <p:panelGrid columns="2" styleClass="col-lg-5" style="direction: rtl;">
+                <p:outputLabel value="الأسم العـائلي :"/>
+                <p:outputLabel value="#{personneController.current.nomAr}"/>
+                
+                <p:outputLabel value="الأسم الـشـخصـي :"/>
+                <p:outputLabel value="#{personneController.current.prenomAr}"/>
+            </p:panelGrid>
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Date de naissance :"/>
+                <p:outputLabel value="#{personneController.current.dateNaissance}"/>
+               
+                <p:outputLabel value="Lieu de naissance :"/>
+                <p:outputLabel value="#{personneController.current.lieuNaissance}"/>
+               
+                <p:outputLabel value="Etat matrimonial :"/>
+                <p:outputLabel value="#{personneController.current.etatMatrimonial}"/>
+               
+                <p:outputLabel value="Nombre d'enfants :"/>
+                <p:outputLabel value="#{personneController.current.nbEnfants}"/>
+               
+                <p:outputLabel value="Numéro de telephonne :"/>
+                <p:outputLabel value="#{personneController.current.telephonne}"/>
+               
+                <p:outputLabel value="Adresse :"/>
+                <p:outputLabel value="#{personneController.current.adresse}"/>
+               
+            </p:panelGrid>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+    </h:body>
+</html>

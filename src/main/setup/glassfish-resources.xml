@@ -7,7 +7,7 @@
         <property name="databaseName" value="grh"/>
         <property name="User" value="root"/>
         <property name="Password" value="salhi1983"/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/grh?zeroDateTimeBehavior=convertToNull"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/grh?characterEncoding=UTF-8"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="jta/mysql_grh" object-type="user" pool-name="mysql_grh_rootPool"/>

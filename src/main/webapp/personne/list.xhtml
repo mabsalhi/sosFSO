@@ -18,29 +18,34 @@ and open the template in the editor.
         <div>Liste des diplomes</div>
         <p:messages for="update"/>
         <h:form>
-            <p:dataTable value="#{diplomeController.all}" var="item"
+            <p:dataTable value="#{personneController.all}" var="item"
                          paginator="true" rows="5" sortMode="multiple" selectionMode="single"
-                         selection="#{diplomeController.current}" rowKey="#{item.idDiplome}">
-                <p:column filterBy="#{item.intitule}">
+                         selection="#{personneController.current}" rowKey="#{item.idPersonne}">
+                <p:column filterBy="#{item.cin}">
                     <f:facet name="header">
-                        <h:outputText value="Intitule"/>
+                        <h:outputText value="CIN"/>
                     </f:facet>
-                    <h:commandLink value="#{item.intitule}" action="#{diplomeController.showDetails(item)}"/>
+                    <h:commandLink value="#{item.cin}" action="#{personneController.showDetails(item)}"/>
                 </p:column>
-                <p:column sortBy="#{item.intituleAr}">
+                <p:column sortBy="#{item.nom}">
                     <f:facet name="header">
-                        <h:outputText value="Initule arabe"/>
+                        <h:outputText value="Nom"/>
                     </f:facet>
-                    <h:outputText value="#{item.intituleAr}"/>
+                    <h:outputText value="#{item.nom}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Description"/>
+                        <h:outputText value="Prenom"/>
                     </f:facet>
-                    <h:outputText value="#{item.description}"/>
+                    <h:outputText value="#{item.prenom}"/>
                 </p:column>
-                
-            </p:dataTable>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="SOM"/>
+                    </f:facet>
+                    <h:outputText value="#{item.som}"/>
+                </p:column>
+              </p:dataTable>
         </h:form>
         </ui:define>
     </ui:composition>
