@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:head>
+        <title>Image Upload</title>
+    </h:head>
+    <h:body>
+        
+        <h:form enctype="multipart/form-data">
+         
+        <p:messages showDetail="true" />
+ 
+        <p:fileUpload value="#{personneController.uploadedFile}" mode="simple" />
+ 
+        <p:commandButton value="Submit" ajax="false" actionListener="#{personneController.upload}" />
+ 
+        <h:graphicImage id="image" alt="uploaded image" url="/image"/>
+ 
+    </h:form>
+        
+        
+
+    </h:body>
+</html>

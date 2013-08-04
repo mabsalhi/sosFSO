@@ -19,6 +19,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 
 /**
@@ -53,6 +55,8 @@ public class PersonneController implements Serializable {
     private int numeroIndicatif;
     private String remarques;
     
+    private UploadedFile uploadedFile;
+    
     
     // ======================================
     // = Constructor =
@@ -66,6 +70,8 @@ public class PersonneController implements Serializable {
     // ======================================
     // = Public Methods =
     // ======================================
+    
+    
     
     public List<Personne> getAll() {
         return ejbFacade.findAll();
@@ -83,13 +89,20 @@ public class PersonneController implements Serializable {
     
     public String showDetails(Personne item){
         this.current = item;
-        return "view?faces-redirect=true";
+        return "edit?faces-redirect=true";
+    }
+    
+    public String showUpload(){
+        logger.log(Level.INFO, "Formulaire d'upload !!");
+        return "uploadPhoto?faces-redirect=true";
     }
     
     
     public String doCreate(){
         logger.log(Level.INFO, "Debut de la procedure d'ajout !!");
+        
         try {
+            
             ejbFacade.create(nouveau);
             addMessage("update", FacesMessage.SEVERITY_INFO, "Nouvel Enregistrement ajouter avec succes", "Succes !!");
             this.nouveau = null;
@@ -104,6 +117,8 @@ public class PersonneController implements Serializable {
     }
     public String doUpdate(){
         try {
+            byte[] data = uploadedFile.getContents();
+                 current.setPhoto(data);
             current = ejbFacade.edit(current);
             
         addMessage("update", FacesMessage.SEVERITY_INFO, "La mise a jour de l'enregistrement : " + this.current.getSom() + " a ete effectuer", "Succes !!");
@@ -124,6 +139,19 @@ public class PersonneController implements Serializable {
         FacesMessage msg = new FacesMessage(severity, message, detail);
         FacesContext.getCurrentInstance().addMessage(key, msg);
     }
+     
+     public void upload(){
+         logger.log(Level.INFO, "Debut de la procedure d'ajout !!");
+         System.out.println("sssss");
+        
+         if (uploadedFile != null) {
+             System.out.println("Le fichier chargé est : " + uploadedFile.getFileName());
+         }else{
+             System.out.println("Error null !!");
+         }
+    
+ }
+     
 
     // ======================================
     // = Getters & setters =
@@ -143,5 +171,22 @@ public class PersonneController implements Serializable {
     public void setNouveau(Personne nouveau) {
         this.nouveau = nouveau;
     }
+
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
+    public String getRemarques() {
+        return remarques;
+    }
+
+    public void setRemarques(String remarques) {
+        this.remarques = remarques;
+    }
      
+    
 }

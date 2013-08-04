@@ -70,7 +70,7 @@ public class CadreController implements Serializable {
         return "list?faces-redirect=true";
     }
 
-public String showCreate(){
+    public String showCreate(){
         this.nouveau = new Cadre();
         return "create?faces-redirect=true";
     }

@@ -28,5 +28,9 @@ public class PersonneFacade extends AbstractFacade<Personne>{
     public PersonneFacade(){
         super(Personne.class);
     }
+    
+    public byte[] loadPhoto(int id){
+        return em.find(Personne.class, id).getPhoto();
+    }
 
 }

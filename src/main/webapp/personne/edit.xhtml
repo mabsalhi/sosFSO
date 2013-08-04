@@ -17,26 +17,132 @@ and open the template in the editor.
         <ui:define name="content">	
         <div>Modification des Diplomes</div>
         <p:messages for="update"/>
+        
         <h:form>
-            <p:panelGrid columns="3">
-                <p:outputLabel value="Intitule du diplome"/>
-                <p:inputText id="intitule" value="#{diplomeController.current.intitule}"
-                             required="true" requiredMessage="Veuillez saisir un intitule"/>
-                <p:message for="intitule"/>
+            <p:commandLink value="Ajouter une Photo" action="#{personneController.showUpload}"/>
+                <p:panelGrid columns="4" styleClass="col-lg-12">
+                <p:outputLabel value="Numéro de S.O.M :"/>
+                <p:inputText id="som" value="#{personneController.current.som}"
+                             required="true" requiredMessage="Veuillez saisir un Entier" converter="javax.faces.Integer">
+                    
+                </p:inputText>
+                <p:message for="som"/>
+                <p:outputLabel value="رقـم الـتأجـيـر :" style="direction: rtl;  float: right;"/>
                 
-                <p:outputLabel value="Intitule en Arabe"/>
-                <p:inputText id="intituleAr" value="#{diplomeController.current.intituleAr}"
-                             required="true" requiredMessage="Veuillez saisir un intitule valide"/>
-                <p:message for="intituleAr"/>
+                <p:outputLabel value="C.I.N :"/>
+                <p:inputText id="cin" value="#{personneController.current.cin}"
+                             required="true" requiredMessage="Veuillez saisir un Numero de cin">
+                    
+                </p:inputText>
+                <p:message for="cin"/>
+                <p:outputLabel value="رقـم بطـاقةالتعريف الوطنية :" style="direction: rtl; float: right;"/>
                 
                 
-                <p:outputLabel value="Description du diplome"/>
-                <p:inputTextarea id="description" value="#{diplomeController.current.description}"
-                             />
+                <p:outputLabel value="Numéro du poste budgétaire :"/>
+                <p:inputText id="posteBudgetaire" value="#{personneController.current.posteBudgetaire}"
+                             required="true" requiredMessage="Veuillez saisir un Entier" converter="javax.faces.Integer">
+                    
+                </p:inputText>
+                <p:message for="posteBudgetaire"/>
+                <p:outputLabel value="المنصب المالى:" style="direction: rtl;  float: right;"/>
+                </p:panelGrid>
+                <p:panelGrid columns="3" styleClass="col-lg-6">
+                <p:outputLabel value="Nom"/>
+                <p:inputText id="nom" value="#{personneController.current.nom}"
+                             required="true" requiredMessage="Veuillez saisir un Nom valide"/>
+                <p:message for="nom"/>
+                <p:outputLabel value="Prénom"/>
+                <p:inputText id="prenom" value="#{personneController.current.prenom}"
+                             required="true" requiredMessage="Veuillez saisir un prénom valide"/>
+                <p:message for="prenom"/>
+                
+                </p:panelGrid>
+            <p:panelGrid columns="3" styleClass="col-lg-6" style="direction: rtl;">
+                <p:outputLabel value="الإسم العـائلـي :"/>
+                <p:inputText id="nomAr" value="#{personneController.current.nomAr}"
+                             required="true" requiredMessage="الرجاء كتابة الإسم باللغـة العربية"/>
+                <p:message for="nomAr"/>
+                
+                <p:outputLabel value="الإسـم الشـخصـي :"/>
+                <p:inputText id="prenomAr" value="#{personneController.current.prenomAr}"
+                             required="true" requiredMessage="الرجاء كتابة الإسم باللغـة العربية"/>
+                <p:message for="prenomAr"/>
+                
                 
             </p:panelGrid>
+            <div class="row">
+                <h2>Infos personnelle</h2>
+            </div>
+            <p:panelGrid columns="4" styleClass="col-lg-12">
+                <p:outputLabel value="Date de Naissance :"/>
+                
+                <p:calendar id="dateNaissance" value="#{personneController.current.dateNaissance}"
+                                mode="popup" pattern="dd/MM/yyyy" 
+                                required="true" requiredMessage="Veuillez selectionnez une Date de naissance" />
+                
+                <p:message for="dateNaissance"/>
+                <p:outputLabel value="تاريخ الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Lieu de Naissance :"/>
+                
+                <p:inputText id="lieuNaissance" value="#{personneController.current.lieuNaissance}"
+                                />
+                
+                <p:message for="lieuNaissance"/>
+                <p:outputLabel value="محـل الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Etat matrimonial :"/>
+                <h:selectOneMenu id="etatMatrimonial" 
+                                 value="#{personneController.current.etatMatrimonial}" >
+                        <f:selectItem itemLabel="Celibataire -- عازب  (ة" itemValue="Celibataire"/>
+                        <f:selectItem itemLabel="Marie -- ة متزوج" itemValue="Marie (e)"/>
+                        <f:selectItem itemLabel="Divorcee -- مطلق (ة" itemValue="Divorce (e)"/>
+                        <f:selectItem itemLabel="Voeuf -- (ة) أرمل" itemValue="Voeuf (ve)"/>
+                </h:selectOneMenu>
+                <p:message for="etatMatrimonial"/>
+                <p:outputLabel value="الحالة الإجتماعية :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Nombre d'enfants :"/>
+                <p:inputText id="nbEnfants" value="#{personneController.current.nbEnfants}"
+                                />
+                
+                <p:message for="nbEnfants"/>
+                <p:outputLabel value="عدد الأطـفال :" style="direction: rtl; float: right;"/>
+                
+                <p:outputLabel value="Adresse :"/>
+                <p:inputTextarea id="adresse" value="#{personneController.current.adresse}"
+                                />
+                
+                <p:message for="adresse"/>
+                <p:outputLabel value="العـنوان:" style="direction: rtl; float: right;"/>
+               
+                <p:outputLabel value="Numéro de télephonne :"/>
+                <p:inputText id="numTelephonne" value="#{personneController.current.telephonne}"
+                                />
+                
+                <p:message for="numTelephonne"/>
+                <p:outputLabel value="رقـم الهاتـف:" style="direction: rtl; float: right;"/>
+                
+                
+                
+                              
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Date de Recrutement :"/>
+                
+                <p:calendar id="dateRecrutement" value="#{personneController.current.dateRecrutement}"
+                                mode="popup" pattern="dd/MM/yyyy" 
+                                required="true" requiredMessage="Veuillez selectionnez une Date de naissance" />
+                
+                <p:message for="dateRecrutement"/>
+                <p:outputLabel value="تاريخ الإزديـاد :" style="direction: rtl; float: right;"/>
+                
+            </p:panelGrid>
+            
+                
             <h:commandButton value="Mettre a jour" action="#{diplomeController.doUpdate}"/>
-        </h:form></ui:define>
+        </h:form>
+        </ui:define>
     </ui:composition>
     </h:body>
 </html>
